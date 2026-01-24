@@ -1,8 +1,4 @@
 :root{
-<<<<<<< HEAD
-=======
-  color-scheme: dark;
->>>>>>> de2d230225265b5567681473d26dee39785df109
   --bg:#0b0f19;
   --card:#121a2a;
   --text:#e7eefc;
@@ -17,15 +13,6 @@ a{color:inherit;text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:20px}
 .nav{position:sticky;top:0;background:rgba(11,15,25,.85);backdrop-filter: blur(10px);border-bottom:1px solid var(--line);z-index:10}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
-<<<<<<< HEAD
-=======
-
-.brand-logo{width:38px;height:38px;border-radius:12px;border:1px solid rgba(100,210,255,.35);box-shadow:0 0 0 1px rgba(166,255,203,.12) inset}
-.brand-text{display:flex;flex-direction:column;line-height:1}
-.brand-name{font-size:16px;letter-spacing:2px}
-.brand-sub{font-size:11px;color:var(--muted);margin-top:3px}
-
->>>>>>> de2d230225265b5567681473d26dee39785df109
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.6px}
 .badge{font-size:12px;border:1px solid var(--line);padding:4px 8px;border-radius:999px;color:var(--muted)}
 .nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
@@ -51,13 +38,6 @@ a{color:inherit;text-decoration:none}
 .section-title span{color:var(--muted);font-size:13px}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}
 .input, select, textarea{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:12px;outline:none}
-<<<<<<< HEAD
-=======
-
-select{background:rgba(18,26,42,.75)}
-select option{background:var(--bg);color:var(--text)}
-
->>>>>>> de2d230225265b5567681473d26dee39785df109
 .input::placeholder{color:#8ea0bd}
 .table{width:100%;border-collapse:collapse}
 .table th,.table td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}

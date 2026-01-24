@@ -12,11 +12,7 @@ export default function Home(){
           <div>
             <h1>Semiconductor & FPGA supply for builders — fast RFQs, trusted sourcing.</h1>
             <p>
-<<<<<<< HEAD
               Marsaan is building a supply chain ecosystem for FPGA/AI boards, sensors, power ICs and tools.
-=======
-              MARSAAN is building a supply chain ecosystem for FPGA/AI boards, sensors, power ICs and tools.
->>>>>>> de2d230225265b5567681473d26dee39785df109
               Start with our curated catalog, upload your BOM, and get a quote workflow that works for startups, OEMs and universities.
             </p>
             <div className="cta-row">
