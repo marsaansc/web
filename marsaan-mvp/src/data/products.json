@@ -1,0 +1,1306 @@
+{
+  "generatedAt": "2026-01-24T07:27:33.948577Z",
+  "count": 20,
+  "products": [
+    {
+      "sku": "FPGA-A7-35T",
+      "category": "FPGA Board",
+      "productType": "Board",
+      "productName": "Artix-7 FPGA Dev Board",
+      "manufacturer": "AMD/Xilinx",
+      "modelPartNumber": "XC7A35T",
+      "variant": "A35T dev board",
+      "keySpecs": "Artix-7, ~33k LUT, DDR3, USB-JTAG",
+      "useCase": "FPGA prototyping, DSP, AI accel",
+      "targetCustomers": "Students, Startups",
+      "plannedBuyPriceINR": 6500.0,
+      "plannedSellPriceINR": 8500.0,
+      "plannedGrossMarginPct": 0.23529411764705882,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/Arty-A7-Artix-7-Development-Hobbyists/dp/B07D1DVRG6",
+          "priceINR": 3371.0
+        },
+        "alibaba": {
+          "url": "https://www.alibaba.com/showroom/xilinx-fpga-kit.html",
+          "priceUSD": 282.8
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 30.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Rynex/Import"
+      },
+      "tier1": {
+        "distributors": [
+          "Avnet",
+          "Arrow",
+          "Digi-Key",
+          "Mouser",
+          "element14 India"
+        ],
+        "notes": "Authorized AMD/Xilinx distributor; Authorized AMD/Xilinx distributor; Authorized distributor; Authorized distributor; Authorized distributor (Farnell/Avnet group)"
+      },
+      "tier2": {
+        "stockists": [
+          "Numato (Bengaluru)",
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "FPGA/dev boards: start with Numato (India OEM) for GST + support; then maker resellers for small qty."
+      }
+    },
+    {
+      "sku": "FPGA-ZYNQ-7020",
+      "category": "FPGA Board",
+      "productType": "Board",
+      "productName": "Zynq-7000 Dev Board",
+      "manufacturer": "AMD/Xilinx",
+      "modelPartNumber": "XC7Z020",
+      "variant": "Z-7020 board",
+      "keySpecs": "Dual ARM A9 + FPGA fabric, DDR3",
+      "useCase": "Embedded + HW accel",
+      "targetCustomers": "Startups, Labs",
+      "plannedBuyPriceINR": 12500.0,
+      "plannedSellPriceINR": 15500.0,
+      "plannedGrossMarginPct": 0.1935483870967742,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/Digilent-Zybo-Z7-Zynq-7000-Development/dp/B0797G4485",
+          "priceINR": 50750.1
+        },
+        "alibaba": {
+          "url": "https://www.alibaba.com/showroom/zynq-7020-development-board.html",
+          "priceUSD": 85.5
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 28.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Rynex/Import"
+      },
+      "tier1": {
+        "distributors": [
+          "Avnet",
+          "Arrow",
+          "Digi-Key",
+          "Mouser",
+          "element14 India"
+        ],
+        "notes": "Authorized AMD/Xilinx distributor; Authorized AMD/Xilinx distributor; Authorized distributor; Authorized distributor; Authorized distributor (Farnell/Avnet group)"
+      },
+      "tier2": {
+        "stockists": [
+          "Numato (Bengaluru)",
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "FPGA/dev boards: start with Numato (India OEM) for GST + support; then maker resellers for small qty."
+      }
+    },
+    {
+      "sku": "FPGA-SPARTAN6",
+      "category": "FPGA Board",
+      "productType": "Board",
+      "productName": "Spartan-6 Dev Board",
+      "manufacturer": "AMD/Xilinx",
+      "modelPartNumber": "XC6SLX9/16",
+      "variant": "Spartan-6 board",
+      "keySpecs": "Low cost FPGA, basic IO",
+      "useCase": "Education, legacy designs",
+      "targetCustomers": "Students, Colleges",
+      "plannedBuyPriceINR": 4200.0,
+      "plannedSellPriceINR": 5800.0,
+      "plannedGrossMarginPct": 0.27586206896551724,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/Numato-Lab-Spartan-Development-Board/dp/B00JA2FAVS",
+          "priceINR": 4097.0
+        },
+        "alibaba": {
+          "url": "https://www.alibaba.com/showroom/spartan-fpga-development-board.html",
+          "priceUSD": 15.06
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 31.2,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Avnet",
+          "Arrow",
+          "Digi-Key",
+          "Mouser",
+          "element14 India"
+        ],
+        "notes": "Authorized AMD/Xilinx distributor; Authorized AMD/Xilinx distributor; Authorized distributor; Authorized distributor; Authorized distributor (Farnell/Avnet group)"
+      },
+      "tier2": {
+        "stockists": [
+          "Numato (Bengaluru)",
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "FPGA/dev boards: start with Numato (India OEM) for GST + support; then maker resellers for small qty."
+      }
+    },
+    {
+      "sku": "FPGA-ICE40UP5K",
+      "category": "FPGA Board",
+      "productType": "Board",
+      "productName": "iCE40 UltraPlus Dev Board",
+      "manufacturer": "Lattice",
+      "modelPartNumber": "iCE40UP5K",
+      "variant": "UP5K board",
+      "keySpecs": "Low-power FPGA, DSP blocks",
+      "useCase": "Ultra-low power edge, learning",
+      "targetCustomers": "Makers, Startups",
+      "plannedBuyPriceINR": 2200.0,
+      "plannedSellPriceINR": 3500.0,
+      "plannedGrossMarginPct": 0.37142857142857144,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/s?k=iCE40+UltraPlus+Dev+Board+iCE40UP5K",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "https://www.alibaba.com/trade/search?SearchText=iCE40+UltraPlus+Dev+Board+iCE40UP5K",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 35.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Import"
+      },
+      "tier1": {
+        "distributors": [
+          "Arrow",
+          "Digi-Key",
+          "Mouser",
+          "element14 India",
+          "Avnet"
+        ],
+        "notes": "Authorized Lattice distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized distributor (region-dependent)"
+      },
+      "tier2": {
+        "stockists": [
+          "Numato (Bengaluru)",
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "FPGA/dev boards: start with Numato (India OEM) for GST + support; then maker resellers for small qty."
+      }
+    },
+    {
+      "sku": "FPGA-ECP5-25F",
+      "category": "FPGA Board",
+      "productType": "Board",
+      "productName": "ECP5 Dev Board",
+      "manufacturer": "Lattice",
+      "modelPartNumber": "LFE5U-25F",
+      "variant": "25F board",
+      "keySpecs": "ECP5 FPGA, SerDes, DDR3 optional",
+      "useCase": "Edge video, custom accel",
+      "targetCustomers": "Startups, Labs",
+      "plannedBuyPriceINR": 5800.0,
+      "plannedSellPriceINR": 8000.0,
+      "plannedGrossMarginPct": 0.275,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/Lattice-ECP5-FPGA-RISC-V-Development/dp/B0BKF9NDGZ",
+          "priceINR": 10156.4
+        },
+        "alibaba": {
+          "url": "https://m.alibaba.com/showroom/ecp5-fpga.html",
+          "priceUSD": 21.28
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 29.0,
+      "supplierPlan": {
+        "sourcingMode": "Import",
+        "primarySupplierPlanned": "Import"
+      },
+      "tier1": {
+        "distributors": [
+          "Arrow",
+          "Digi-Key",
+          "Mouser",
+          "element14 India",
+          "Avnet"
+        ],
+        "notes": "Authorized Lattice distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized distributor (region-dependent)"
+      },
+      "tier2": {
+        "stockists": [
+          "Numato (Bengaluru)",
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "FPGA/dev boards: start with Numato (India OEM) for GST + support; then maker resellers for small qty."
+      }
+    },
+    {
+      "sku": "FPGA-MAX10",
+      "category": "FPGA Board",
+      "productType": "Board",
+      "productName": "MAX10 Dev Board",
+      "manufacturer": "Intel/Altera",
+      "modelPartNumber": "MAX10",
+      "variant": "MAX10 kit",
+      "keySpecs": "Low-power FPGA + ADC",
+      "useCase": "Industrial control",
+      "targetCustomers": "Colleges, Industry",
+      "plannedBuyPriceINR": 6500.0,
+      "plannedSellPriceINR": 8800.0,
+      "plannedGrossMarginPct": 0.26136363636363635,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/Altera-MAX10-FPGA-Development-Board/dp/B07B4WPKGS",
+          "priceINR": 16098.0
+        },
+        "alibaba": {
+          "url": "https://www.alibaba.com/product-detail/DK-DEV-10M50F484-B-MAX-10_1601294733718.html",
+          "priceUSD": 81.5
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 31.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Import"
+      },
+      "tier1": {
+        "distributors": [
+          "Arrow",
+          "Mouser",
+          "Digi-Key",
+          "Avnet",
+          "element14 India"
+        ],
+        "notes": "Authorized Intel distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized distributor"
+      },
+      "tier2": {
+        "stockists": [
+          "Numato (Bengaluru)",
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "FPGA/dev boards: start with Numato (India OEM) for GST + support; then maker resellers for small qty."
+      }
+    },
+    {
+      "sku": "AI-JETSON-NANO",
+      "category": "AI Edge Board",
+      "productType": "Board",
+      "productName": "NVIDIA Jetson Nano Dev Kit",
+      "manufacturer": "NVIDIA",
+      "modelPartNumber": "Jetson Nano",
+      "variant": "4GB kit",
+      "keySpecs": "128-core GPU, ARM CPU",
+      "useCase": "Edge inference, vision",
+      "targetCustomers": "AI startups, Students",
+      "plannedBuyPriceINR": 21999.0,
+      "plannedSellPriceINR": 33850.0,
+      "plannedGrossMarginPct": 0.3501,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "https://www.amazon.in/NVIDIA-Jetson-Nano-Developer-Kit/dp/B0D3MFRG2R",
+          "priceINR": 37499.0
+        },
+        "alibaba": {
+          "url": "https://www.alibaba.com/showroom/jetson-nano.html",
+          "priceUSD": 62.76
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 33.4,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Local/Import"
+      },
+      "tier1": {
+        "distributors": [
+          "Arrow",
+          "NVIDIA Jetson Store/Partners",
+          "Digi-Key",
+          "Seeed Studio (Jetson partner)",
+          "Mouser"
+        ],
+        "notes": "Authorized NVIDIA Jetson channel; Official buying channels for Jetson; Authorized distributor for many Jetson accessories/partners; Jetson ecosystem partner (dev kits/modules); Authorized distributor (availability varies)"
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Thingbits",
+          "Robocraze",
+          "RhydoLABZ (confirm GST at checkout)",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "Jetson/AI edge kits: use India resellers for quick delivery; confirm module authenticity & seal."
+      }
+    },
+    {
+      "sku": "SENS-MPU6050",
+      "category": "Sensor",
+      "productType": "Module",
+      "productName": "IMU MPU6050 Module",
+      "manufacturer": "InvenSense",
+      "modelPartNumber": "MPU6050",
+      "variant": "",
+      "keySpecs": "6-axis IMU",
+      "useCase": "Robotics",
+      "targetCustomers": "Students, robotics",
+      "plannedBuyPriceINR": 165.0,
+      "plannedSellPriceINR": 260.0,
+      "plannedGrossMarginPct": 0.3654,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 39.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Digi-Key",
+          "Mouser",
+          "Arrow",
+          "RS India",
+          "element14 India"
+        ],
+        "notes": "Authorized distributor (TDK/InvenSense); Authorized distributor; Reputable distributor (check authorization by part); Reputable distributor; Reputable distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Sunrom",
+          "Rajguru Electronics (Karnataka)",
+          "Robocraze",
+          "ElectronicsComp"
+        ],
+        "notes": "Sensors/ICs: buy small sample first; for critical branded ICs prefer Tier-1 authorized channels."
+      }
+    },
+    {
+      "sku": "SENS-HCSR04",
+      "category": "Sensor",
+      "productType": "Module",
+      "productName": "Ultrasonic HC-SR04",
+      "manufacturer": "Generic",
+      "modelPartNumber": "HC-SR04",
+      "variant": "",
+      "keySpecs": "Distance sensor",
+      "useCase": "Robotics",
+      "targetCustomers": "Students",
+      "plannedBuyPriceINR": 59.0,
+      "plannedSellPriceINR": 100.0,
+      "plannedGrossMarginPct": 0.41,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 33.5,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "element14 India",
+          "RS India",
+          "Mouser",
+          "Digi-Key",
+          "Seeed Studio / SparkFun / Adafruit"
+        ],
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Sunrom",
+          "Rajguru Electronics (Karnataka)",
+          "Robocraze",
+          "ElectronicsComp"
+        ],
+        "notes": "Sensors/ICs: buy small sample first; for critical branded ICs prefer Tier-1 authorized channels."
+      }
+    },
+    {
+      "sku": "MCU-ESP32",
+      "category": "Microcontroller",
+      "productType": "Board",
+      "productName": "ESP32 DevKit",
+      "manufacturer": "Espressif",
+      "modelPartNumber": "ESP32-WROOM",
+      "variant": "WROOM-32",
+      "keySpecs": "WiFi/BT MCU",
+      "useCase": "IoT edge",
+      "targetCustomers": "Students, startups",
+      "plannedBuyPriceINR": 339.0,
+      "plannedSellPriceINR": 530.0,
+      "plannedGrossMarginPct": 0.3604,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 39.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Mouser",
+          "Digi-Key",
+          "RS India",
+          "Arrow",
+          "element14 India"
+        ],
+        "notes": "Authorized Espressif distributor; Authorized Espressif distributor; Reputable distributor (check authorization by part); Reputable distributor (check authorization by part); Reputable distributor (check authorization by part)"
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Sunrom",
+          "Rajguru Electronics (Karnataka)",
+          "Robocraze",
+          "ElectronicsComp"
+        ],
+        "notes": "Sensors/ICs: buy small sample first; for critical branded ICs prefer Tier-1 authorized channels."
+      }
+    },
+    {
+      "sku": "MCU-STM32F401",
+      "category": "Microcontroller",
+      "productType": "Board",
+      "productName": "STM32F401 Dev Board",
+      "manufacturer": "STMicro",
+      "modelPartNumber": "STM32F401",
+      "variant": "Black Pill",
+      "keySpecs": "Cortex-M4",
+      "useCase": "Control, DSP",
+      "targetCustomers": "Students, startups",
+      "plannedBuyPriceINR": 284.0,
+      "plannedSellPriceINR": 440.0,
+      "plannedGrossMarginPct": 0.3545,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 33.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "element14 India",
+          "Mouser",
+          "Digi-Key",
+          "Arrow",
+          "RS India"
+        ],
+        "notes": "Authorized ST e-commerce distributor; Authorized ST distributor; Authorized ST distributor; Authorized ST distributor; Authorized/Franchised electronics distributor"
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Sunrom",
+          "Rajguru Electronics (Karnataka)",
+          "Robocraze",
+          "ElectronicsComp"
+        ],
+        "notes": "Sensors/ICs: buy small sample first; for critical branded ICs prefer Tier-1 authorized channels."
+      }
+    },
+    {
+      "sku": "CONN-CP2102",
+      "category": "Connectivity",
+      "productType": "Module",
+      "productName": "USB-UART CP2102 Module",
+      "manufacturer": "Silicon Labs",
+      "modelPartNumber": "CP2102",
+      "variant": "",
+      "keySpecs": "USB to UART",
+      "useCase": "Debug/program",
+      "targetCustomers": "All devs",
+      "plannedBuyPriceINR": 107.0,
+      "plannedSellPriceINR": 170.0,
+      "plannedGrossMarginPct": 0.3706,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 39.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Arrow",
+          "Mouser",
+          "Digi-Key",
+          "element14 India",
+          "RS India"
+        ],
+        "notes": "Authorized Silicon Labs distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized/Franchised electronics distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Sunrom",
+          "Rajguru Electronics (Karnataka)",
+          "Robocraze",
+          "ElectronicsComp"
+        ],
+        "notes": "Sensors/ICs: buy small sample first; for critical branded ICs prefer Tier-1 authorized channels."
+      }
+    },
+    {
+      "sku": "MEM-W25Q128",
+      "category": "Memory",
+      "productType": "IC",
+      "productName": "QSPI NOR Flash 128Mbit",
+      "manufacturer": "Winbond",
+      "modelPartNumber": "W25Q128JV",
+      "variant": "",
+      "keySpecs": "128Mbit QSPI",
+      "useCase": "FPGA config",
+      "targetCustomers": "FPGA board builders",
+      "plannedBuyPriceINR": 161.0,
+      "plannedSellPriceINR": 250.0,
+      "plannedGrossMarginPct": 0.356,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 55.4,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "LCSC/Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Arrow",
+          "Digi-Key",
+          "Mouser",
+          "element14 India",
+          "RS India"
+        ],
+        "notes": "Authorized Winbond distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized/Franchised electronics distributor"
+      },
+      "tier2": {
+        "stockists": [
+          "Rajguru Electronics (Karnataka)",
+          "Robu.in",
+          "Sunrom",
+          "ElectronicsComp",
+          "Tomson Electronics"
+        ],
+        "notes": "Memory/storage: verify industrial grade specs; keep 2 suppliers for continuity."
+      }
+    },
+    {
+      "sku": "MEM-MICROSD-32",
+      "category": "Memory",
+      "productType": "Accessory",
+      "productName": "microSD Card 32GB",
+      "manufacturer": "SanDisk/Generic",
+      "modelPartNumber": "microSD",
+      "variant": "32GB",
+      "keySpecs": "Storage",
+      "useCase": "Dev kits",
+      "targetCustomers": "All",
+      "plannedBuyPriceINR": 719.0,
+      "plannedSellPriceINR": 1110.0,
+      "plannedGrossMarginPct": 0.3523,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 33.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Digi-Key",
+          "Mouser",
+          "RS India",
+          "element14 India",
+          "Authorized SanDisk/WD channel partner"
+        ],
+        "notes": "Reputable distributor (industrial-grade cards); Reputable distributor (industrial-grade cards); Reputable distributor; Reputable distributor; Use official channel/reseller list where possible | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Rajguru Electronics (Karnataka)",
+          "Robu.in",
+          "Sunrom",
+          "ElectronicsComp",
+          "Tomson Electronics"
+        ],
+        "notes": "Memory/storage: verify industrial grade specs; keep 2 suppliers for continuity."
+      }
+    },
+    {
+      "sku": "PWR-MP2459",
+      "category": "Power",
+      "productType": "Module",
+      "productName": "Buck Converter Module MP2459",
+      "manufacturer": "MPS",
+      "modelPartNumber": "MP2459",
+      "variant": "",
+      "keySpecs": "DC-DC buck module",
+      "useCase": "Power rails",
+      "targetCustomers": "All boards",
+      "plannedBuyPriceINR": 18.0,
+      "plannedSellPriceINR": 40.0,
+      "plannedGrossMarginPct": 0.55,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 51.2,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Millennium Semiconductors India",
+          "Digi-Key",
+          "Avnet/Avnet Silica",
+          "Mouser",
+          "Arrow"
+        ],
+        "notes": "Authorized MPS distributor (India); Authorized distributor; Authorized distributor (region-dependent); Authorized distributor; Authorized/Franchised distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Rajguru Electronics (Karnataka)",
+          "Robu.in",
+          "Sunrom",
+          "Tomson Electronics",
+          "ElectronicsComp"
+        ],
+        "notes": "Power parts: avoid too-cheap offers; inspect markings; sample QC before scaling."
+      }
+    },
+    {
+      "sku": "PWR-AMS1117",
+      "category": "Power",
+      "productType": "IC",
+      "productName": "LDO Regulator AMS1117",
+      "manufacturer": "AMS",
+      "modelPartNumber": "AMS1117",
+      "variant": "3.3V/5V",
+      "keySpecs": "Linear regulator",
+      "useCase": "Low power rails",
+      "targetCustomers": "All",
+      "plannedBuyPriceINR": 13.0,
+      "plannedSellPriceINR": 20.0,
+      "plannedGrossMarginPct": 0.35,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 46.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Digi-Key",
+          "Mouser",
+          "element14 India",
+          "RS India",
+          "Arrow"
+        ],
+        "notes": "Reputable distributor (may stock alternatives); Reputable distributor (may stock alternatives); Reputable distributor (may stock alternatives); Reputable distributor; Reputable distributor | Note: many clones exist; prefer genuine ICs via authorized channels; verify markings/lot codes."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Sunrom",
+          "Rajguru Electronics (Karnataka)",
+          "Robocraze",
+          "ElectronicsComp"
+        ],
+        "notes": "Sensors/ICs: buy small sample first; for critical branded ICs prefer Tier-1 authorized channels."
+      }
+    },
+    {
+      "sku": "PWR-LM2596",
+      "category": "Power",
+      "productType": "Module",
+      "productName": "LM2596 Buck Module",
+      "manufacturer": "TI/Clone",
+      "modelPartNumber": "LM2596",
+      "variant": "",
+      "keySpecs": "Common buck module",
+      "useCase": "Prototyping",
+      "targetCustomers": "Students",
+      "plannedBuyPriceINR": 39.0,
+      "plannedSellPriceINR": 60.0,
+      "plannedGrossMarginPct": 0.35,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 28.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "Digi-Key",
+          "Mouser",
+          "Arrow",
+          "RS India",
+          "element14 India"
+        ],
+        "notes": "Authorized TI distributor (for genuine TI parts); Authorized TI distributor; Authorized TI distributor; Authorized/Franchised distributor; Authorized/Franchised distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Rajguru Electronics (Karnataka)",
+          "Robu.in",
+          "Sunrom",
+          "Tomson Electronics",
+          "ElectronicsComp"
+        ],
+        "notes": "Power parts: avoid too-cheap offers; inspect markings; sample QC before scaling."
+      }
+    },
+    {
+      "sku": "TOOL-LOGIC-8CH",
+      "category": "Tool",
+      "productType": "Tool",
+      "productName": "8-Channel USB Logic Analyzer",
+      "manufacturer": "Generic",
+      "modelPartNumber": "Saleae clone",
+      "variant": "24MHz typical",
+      "keySpecs": "Logic capture",
+      "useCase": "Debug",
+      "targetCustomers": "Labs",
+      "plannedBuyPriceINR": 355.0,
+      "plannedSellPriceINR": 550.0,
+      "plannedGrossMarginPct": 0.3545,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 29.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "element14 India",
+          "RS India",
+          "Mouser",
+          "Digi-Key",
+          "Seeed Studio / SparkFun / Adafruit"
+        ],
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Rajguru Electronics (Karnataka)",
+          "Tomson Electronics",
+          "Sunrom",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "Accessories: fastest fulfillment often via India e-commerce + local markets; insist on GST invoice."
+      }
+    },
+    {
+      "sku": "ACC-BREADBOARD",
+      "category": "Accessory",
+      "productType": "Accessory",
+      "productName": "Breadboard (full size)",
+      "manufacturer": "Generic",
+      "modelPartNumber": "BB",
+      "variant": "",
+      "keySpecs": "Prototyping",
+      "useCase": "Prototyping",
+      "targetCustomers": "Students",
+      "plannedBuyPriceINR": 54.0,
+      "plannedSellPriceINR": 90.0,
+      "plannedGrossMarginPct": 0.4,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 37.5,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "element14 India",
+          "RS India",
+          "Mouser",
+          "Digi-Key",
+          "Seeed Studio / SparkFun / Adafruit"
+        ],
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Rajguru Electronics (Karnataka)",
+          "Tomson Electronics",
+          "Sunrom",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "Accessories: fastest fulfillment often via India e-commerce + local markets; insist on GST invoice."
+      }
+    },
+    {
+      "sku": "ACC-JUMPER",
+      "category": "Accessory",
+      "productType": "Accessory",
+      "productName": "Jumper Wires Pack",
+      "manufacturer": "Generic",
+      "modelPartNumber": "Dupont",
+      "variant": "40pcs",
+      "keySpecs": "Prototyping",
+      "useCase": "Prototyping",
+      "targetCustomers": "Students",
+      "plannedBuyPriceINR": 115.83,
+      "plannedSellPriceINR": 180.0,
+      "plannedGrossMarginPct": 0.3565,
+      "moq": "",
+      "leadTimeDays": 150.0,
+      "links": {
+        "amazonIN": {
+          "url": "",
+          "priceINR": null
+        },
+        "alibaba": {
+          "url": "",
+          "priceUSD": null
+        },
+        "lcsc": {
+          "url": "",
+          "priceUSD": null
+        },
+        "mouser": {
+          "url": "",
+          "priceUSD": null
+        },
+        "digikey": {
+          "url": "",
+          "priceUSD": null
+        }
+      },
+      "priorityLabel": "High",
+      "priorityScore": 45.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
+      "tier1": {
+        "distributors": [
+          "element14 India",
+          "RS India",
+          "Mouser",
+          "Digi-Key",
+          "Seeed Studio / SparkFun / Adafruit"
+        ],
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
+      },
+      "tier2": {
+        "stockists": [
+          "Robu.in",
+          "Rajguru Electronics (Karnataka)",
+          "Tomson Electronics",
+          "Sunrom",
+          "SP Road Electronics Market (Bangalore)"
+        ],
+        "notes": "Accessories: fastest fulfillment often via India e-commerce + local markets; insist on GST invoice."
+      }
+    }
+  ]
+}
