@@ -6,8 +6,16 @@ export default function Layout({ children }) {
       <header className="nav">
         <div className="container nav-inner">
           <Link to="/" className="brand">
+<<<<<<< HEAD
             <span style={{fontSize:18}}>Marsaan</span>
             <span className="badge">Semiconductor Supply — MVP</span>
+=======
+            <img className="brand-logo" src="/brand/logo-marsaan.png" alt="MARSAAN logo" />
+            <div className="brand-text">
+              <div className="brand-name">MARSAAN</div>
+              <div className="brand-sub">Semiconductor Supply</div>
+            </div>
+>>>>>>> de2d230225265b5567681473d26dee39785df109
           </Link>
           <nav className="nav-links">
             <NavLink to="/catalog">Catalog</NavLink>
@@ -27,7 +35,11 @@ export default function Layout({ children }) {
         <div className="container">
           <div style={{display:'flex',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
             <div>
+<<<<<<< HEAD
               <div><b>Marsaan.com</b> — Catalog + RFQ + BOM Upload</div>
+=======
+              <div><b>MARSAAN.com</b> — Catalog + RFQ + BOM Upload</div>
+>>>>>>> de2d230225265b5567681473d26dee39785df109
               <div className="small">This is a working MVP template. Configure forms to email submissions to your official inbox.</div>
             </div>
             <div className="small">
