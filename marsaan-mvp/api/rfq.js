@@ -13,6 +13,15 @@ function serverError(res, message) {
   res.end(JSON.stringify({ ok: false, error: message }));
 }
 
+function formatSmtpError(e) {
+  // Keep it safe (no credentials), but include helpful diagnostics.
+  const code = e?.code || e?.responseCode || e?.errno || 'smtp_error';
+  const cmd = e?.command ? ` (${e.command})` : '';
+  const msg = e?.message ? String(e.message) : 'Email send failed.';
+  const response = e?.response ? ` | response: ${String(e.response).slice(0, 240)}` : '';
+  return `Email send failed [${code}]${cmd}: ${msg}${response}`;
+}
+
 function ok(res, body) {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
@@ -156,12 +165,36 @@ export default async function handler(req, res) {
   const portNum = Number(SMTP_PORT || 465);
   const secure = portNum === 465;
 
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: portNum,
-    secure,
-    auth: { user: SMTP_USER, pass: SMTP_PASS }
-  });
+  async function sendMailWithFallback(mail) {
+    const candidates = [
+      { host: SMTP_HOST, port: portNum, secure },
+    ];
+    // Auto-fallback between 465 (SSL) and 587 (STARTTLS) — common Zoho setups.
+    if (portNum === 465) candidates.push({ host: SMTP_HOST, port: 587, secure: false });
+    if (portNum === 587) candidates.push({ host: SMTP_HOST, port: 465, secure: true });
+
+    let lastErr;
+    for (const c of candidates) {
+      try {
+        const transporter = nodemailer.createTransport({
+          host: c.host,
+          port: c.port,
+          secure: c.secure,
+          auth: { user: SMTP_USER, pass: SMTP_PASS },
+          // Prevent long hangs in serverless.
+          connectionTimeout: 10_000,
+          greetingTimeout: 10_000,
+          socketTimeout: 15_000,
+        });
+
+        await transporter.sendMail(mail);
+        return { ok: true, used: { port: c.port, secure: c.secure } };
+      } catch (e) {
+        lastErr = e;
+      }
+    }
+    throw lastErr;
+  }
 
   const rfqJson = Buffer.from(JSON.stringify(payload, null, 2), 'utf-8');
   const subject = `Marsaan RFQ — ${payload?.form?.company || payload?.form?.name || 'New lead'} — ${new Date().toLocaleString()}`;
@@ -184,8 +217,9 @@ export default async function handler(req, res) {
 
   const text = buildEmailText(payload);
 
+  let sendMeta;
   try {
-    await transporter.sendMail({
+    sendMeta = await sendMailWithFallback({
       from: MAIL_FROM,
       to: MAIL_TO,
       subject,
@@ -193,7 +227,7 @@ export default async function handler(req, res) {
       attachments
     });
   } catch (e) {
-    return serverError(res, 'Email send failed. Check SMTP credentials/host/port in Vercel env vars.');
+    return serverError(res, formatSmtpError(e));
   }
 
   // optional webhook to CRM
@@ -204,5 +238,5 @@ export default async function handler(req, res) {
     webhook = { sent: false, error: 'webhook_failed' };
   }
 
-  ok(res, { message: 'RFQ received and emailed successfully.', webhook });
+  ok(res, { message: 'RFQ received and emailed successfully.', smtp: sendMeta?.used || null, webhook });
 }

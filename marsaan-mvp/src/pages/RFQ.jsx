@@ -43,10 +43,12 @@ export default function RFQ(){
 
   const [submitting, setSubmitting] = useState(false)
   const [status, setStatus] = useState(null)
+  const [lastPayload, setLastPayload] = useState(null)
 
   async function onSubmit(e){
     e.preventDefault()
     setStatus(null)
+    setLastPayload(null)
 
     const payload = {
       submittedAt: new Date().toISOString(),
@@ -56,6 +58,8 @@ export default function RFQ(){
     }
 
     // Production behavior: send RFQ + BOM to Vercel serverless function (/api/rfq)
+    // If the server responds with an error, show the message and allow manual JSON download.
+    // Only auto-download if the network call itself fails.
     try{
       setSubmitting(true)
       const fd = new FormData()
@@ -66,7 +70,10 @@ export default function RFQ(){
       const j = await r.json().catch(()=>null)
 
       if(!r.ok || !j?.ok){
-        throw new Error(j?.error || 'Submission failed')
+        const msg = j?.error || `Submission failed (${r.status})`
+        setLastPayload(payload)
+        setStatus({ type:'warn', msg: msg })
+        return
       }
 
       setStatus({ type:'ok', msg:'RFQ submitted. You will receive an email at rfq@marsaan.com shortly.' })
@@ -75,9 +82,9 @@ export default function RFQ(){
       // setCart([])
       return
     }catch(err){
-      // Fallback: download JSON so you can still email it manually
-      downloadText(`Marsaan_RFQ_${Date.now()}.json`, JSON.stringify(payload, null, 2))
-      setStatus({ type:'warn', msg:'RFQ saved as a JSON download because the server endpoint failed. Check /api/health and Vercel env vars, then try again.' })
+      // Network or unexpected runtime error: keep the RFQ locally and allow manual download.
+      setLastPayload(payload)
+      setStatus({ type:'warn', msg:`RFQ endpoint request failed: ${err?.message || 'Unknown error'}. You can download the RFQ JSON and email it manually.` })
     }finally{
       setSubmitting(false)
     }
@@ -103,7 +110,7 @@ export default function RFQ(){
 
         <form className="card" onSubmit={onSubmit}>
           <h3>Lead capture</h3>
-          <p>Fill these details and submit. This form is connected to a Vercel backend endpoint that emails your RFQ to rfq@marsaan.com. If the endpoint is unavailable, it will fall back to downloading a JSON file.</p>
+          <p>Fill these details and submit. This form is connected to a Vercel backend endpoint that emails your RFQ to rfq@marsaan.com. If the endpoint fails, you can download the RFQ JSON and email it manually.</p>
 
           <div className="toolbar">
             <input className="input" placeholder="Company / Lab / Institute" value={form.company}
@@ -148,10 +155,23 @@ export default function RFQ(){
 
           {status && (
             <div className={status.type === 'ok' ? 'notice success' : 'notice warning'} style={{marginTop:10}}>
-              {status.msg}
+              <div style={{display:'flex',gap:10,alignItems:'center',flexWrap:'wrap'}}>
+                <span>{status.msg}</span>
+                {lastPayload && (
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => downloadText(`Marsaan_RFQ_${Date.now()}.json`, JSON.stringify(lastPayload, null, 2))}
+                  >
+                    Download RFQ JSON
+                  </button>
+                )}
+                {status.type !== 'ok' && (
+                  <a className="btn" href="/api/health" target="_blank" rel="noreferrer">Check /api/health</a>
+                )}
+              </div>
             </div>
           )}
-
           <div style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:12}}>
             <button className="btn primary" type="submit" disabled={submitting || (!hasLines && !bomFile)}>Submit RFQ</button>
             <Link className="btn" to="/catalog">Add products</Link>
