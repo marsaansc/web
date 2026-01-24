@@ -90,7 +90,6 @@ export default function RFQ(){
   function onQty(sku, qty){
     setCart(updateQty(sku, qty))
   }
-  }
 
   return (
     <div>
