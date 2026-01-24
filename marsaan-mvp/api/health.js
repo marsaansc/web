@@ -1,12 +1,13 @@
-// Simple health endpoint for deployment checks.
-// GET /api/health
-
-export default function handler(req, res){
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
+export default function handler(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.statusCode = 200;
   res.end(JSON.stringify({
     ok: true,
     service: 'marsaan-mvp',
-    time: new Date().toISOString()
-  }))
+    ts: new Date().toISOString(),
+    hasSmtpHost: Boolean(process.env.SMTP_HOST),
+    hasSmtpUser: Boolean(process.env.SMTP_USER),
+    hasMailTo: Boolean(process.env.MAIL_TO),
+    hasWebhook: Boolean(process.env.LEAD_WEBHOOK_URL)
+  }));
 }

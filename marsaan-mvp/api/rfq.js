@@ -1,193 +1,208 @@
-import Busboy from 'busboy'
-import nodemailer from 'nodemailer'
-import crypto from 'crypto'
+import Busboy from 'busboy';
+import nodemailer from 'nodemailer';
 
-// Vercel Serverless Function: POST /api/rfq
-// - Accepts multipart/form-data with:
-//   - payload: JSON string (required)
-//   - bom: file (optional)
-// - Sends an email to rfq@marsaan.com (or MAIL_TO)
-// - Optionally forwards lead JSON to a webhook (Zoho Flow / Odoo endpoint)
-
-const MAX_FILE_BYTES = Number(process.env.RFQ_MAX_FILE_BYTES || 8_000_000) // 8 MB
-
-function json(res, status, body){
-  res.statusCode = status
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
-  res.end(JSON.stringify(body))
+function badRequest(res, message) {
+  res.statusCode = 400;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ ok: false, error: message }));
 }
 
-function setCors(req, res){
-  const origin = req.headers.origin || '*'
-  res.setHeader('Access-Control-Allow-Origin', origin)
-  res.setHeader('Vary', 'Origin')
-  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+function serverError(res, message) {
+  res.statusCode = 500;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ ok: false, error: message }));
 }
 
-function parseMultipart(req){
-  return new Promise((resolve, reject)=>{
+function ok(res, body) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ ok: true, ...body }));
+}
+
+function parseMultipart(req, { maxFileBytes }) {
+  return new Promise((resolve, reject) => {
     const bb = Busboy({
       headers: req.headers,
-      limits: {
-        files: 1,
-        fileSize: MAX_FILE_BYTES,
-        fields: 25
+      limits: { fileSize: maxFileBytes }
+    });
+
+    const fields = {};
+    let bom = null; // { filename, mimeType, buffer }
+    let bomTooLarge = false;
+
+    bb.on('field', (name, val) => {
+      fields[name] = val;
+    });
+
+    bb.on('file', (name, file, info) => {
+      const { filename, mimeType } = info;
+      if (name !== 'bom') {
+        // drain unknown file field
+        file.resume();
+        return;
       }
-    })
+      const chunks = [];
+      file.on('limit', () => { bomTooLarge = true; });
+      file.on('data', (data) => chunks.push(data));
+      file.on('end', () => {
+        bom = { filename: filename || 'bom', mimeType: mimeType || 'application/octet-stream', buffer: Buffer.concat(chunks) };
+      });
+    });
 
-    const fields = {}
-    let file = null
+    bb.on('error', reject);
+    bb.on('finish', () => resolve({ fields, bom, bomTooLarge }));
 
-    bb.on('field', (name, val)=>{
-      fields[name] = val
-    })
-
-    bb.on('file', (name, stream, info)=>{
-      const { filename, mimeType } = info
-      if(name !== 'bom'){
-        stream.resume()
-        return
-      }
-      const chunks = []
-      let size = 0
-      stream.on('data', (d)=>{
-        size += d.length
-        chunks.push(d)
-      })
-      stream.on('limit', ()=>{
-        reject(new Error(`BOM file too large. Max ${MAX_FILE_BYTES} bytes.`))
-      })
-      stream.on('end', ()=>{
-        file = {
-          filename,
-          mimeType: mimeType || 'application/octet-stream',
-          size,
-          buffer: Buffer.concat(chunks)
-        }
-      })
-    })
-
-    bb.on('error', reject)
-    bb.on('finish', ()=> resolve({ fields, file }))
-    req.pipe(bb)
-  })
+    req.pipe(bb);
+  });
 }
 
-function requireEnv(name){
-  const v = process.env[name]
-  if(!v) throw new Error(`Missing env: ${name}`)
-  return v
+function buildEmailText(payload) {
+  const f = payload?.form || {};
+  const lines = Array.isArray(payload?.cart) ? payload.cart : [];
+
+  const header = [
+    'New RFQ received on Marsaan.com',
+    '',
+    `Submitted At: ${payload?.submittedAt || new Date().toISOString()}`,
+    '',
+    'Lead details',
+    `Company: ${f.company || ''}`,
+    `Name: ${f.name || ''}`,
+    `Email: ${f.email || ''}`,
+    `Phone: ${f.phone || ''}`,
+    `Customer Type: ${f.customerType || ''}`,
+    `Country: ${f.country || ''}`,
+    `Needed By: ${f.neededBy || ''}`,
+    '',
+    'Items'
+  ].join('\n');
+
+  const items = lines.length
+    ? lines.map((x, i) => `${i + 1}. ${x.sku || ''} | ${x.name || ''} | ${x.model || ''} | Qty: ${x.qty || ''}`).join('\n')
+    : '(No cart items — BOM-only submission)';
+
+  const notes = `\n\nNotes\n${f.notes || ''}\n`;
+
+  return header + '\n' + items + notes;
 }
 
-function buildEmailText(payload){
-  const f = payload?.form || {}
-  const cart = payload?.cart || []
+async function sendLeadWebhook(payload) {
+  const url = process.env.LEAD_WEBHOOK_URL;
+  if (!url) return { sent: false };
+  const secret = process.env.LEAD_WEBHOOK_SECRET;
 
-  const lines = []
-  lines.push(`Marsaan RFQ received: ${payload?.submittedAt || new Date().toISOString()}`)
-  lines.push('')
-  lines.push('Lead')
-  lines.push(`Company: ${f.company || '-'}`)
-  lines.push(`Name: ${f.name || '-'}`)
-  lines.push(`Email: ${f.email || '-'}`)
-  lines.push(`Phone: ${f.phone || '-'}`)
-  lines.push(`Customer Type: ${f.customerType || '-'}`)
-  lines.push(`Country: ${f.country || '-'}`)
-  lines.push(`Needed By: ${f.neededBy || '-'}`)
-  lines.push('')
-  lines.push('Notes')
-  lines.push(f.notes || '-')
-  lines.push('')
-  lines.push(`Quote Lines (${cart.length})`)
-  for(const item of cart){
-    lines.push(`- ${item.sku || ''} | ${item.name || ''} | ${item.model || ''} | qty: ${item.qty || 1}`)
+  const headers = { 'Content-Type': 'application/json' };
+  if (secret) headers['X-Lead-Secret'] = secret;
+
+  const r = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload)
+  });
+
+  return { sent: true, status: r.status };
+}
+
+export default async function handler(req, res) {
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 204;
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.end();
+    return;
   }
-  return lines.join('\n')
-}
 
-export default async function handler(req, res){
-  setCors(req, res)
-  if(req.method === 'OPTIONS') return res.end('ok')
-  if(req.method !== 'POST') return json(res, 405, { ok:false, error: 'Method not allowed' })
+  if (req.method !== 'POST') {
+    res.statusCode = 405;
+    res.setHeader('Allow', 'POST, OPTIONS');
+    res.end('Method Not Allowed');
+    return;
+  }
 
-  try{
-    const { fields, file } = await parseMultipart(req)
-    if(!fields.payload) return json(res, 400, { ok:false, error: 'Missing payload' })
+  const maxFileBytes = Number(process.env.RFQ_MAX_FILE_BYTES || 8000000);
 
-    let payload
-    try{
-      payload = JSON.parse(fields.payload)
-    }catch{
-      return json(res, 400, { ok:false, error: 'Invalid JSON in payload' })
+  let parsed;
+  try {
+    parsed = await parseMultipart(req, { maxFileBytes });
+  } catch (e) {
+    return serverError(res, 'Failed to parse form data.');
+  }
+
+  if (parsed.bomTooLarge) {
+    return badRequest(res, `BOM file too large. Max allowed is ${Math.floor(maxFileBytes / 1000000)}MB.`);
+  }
+
+  // Expect JSON in field "rfq"
+  let payload;
+  try {
+    payload = parsed.fields?.rfq ? JSON.parse(parsed.fields.rfq) : null;
+  } catch (e) {
+    return badRequest(res, 'Invalid RFQ JSON.');
+  }
+
+  if (!payload || !payload.form || (!Array.isArray(payload.cart) && !parsed.bom)) {
+    return badRequest(res, 'Missing RFQ payload.');
+  }
+
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+  const MAIL_TO = process.env.MAIL_TO || SMTP_USER;
+  const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER;
+
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
+    return serverError(res, 'SMTP environment variables are not configured.');
+  }
+
+  const portNum = Number(SMTP_PORT || 465);
+  const secure = portNum === 465;
+
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: portNum,
+    secure,
+    auth: { user: SMTP_USER, pass: SMTP_PASS }
+  });
+
+  const rfqJson = Buffer.from(JSON.stringify(payload, null, 2), 'utf-8');
+  const subject = `Marsaan RFQ — ${payload?.form?.company || payload?.form?.name || 'New lead'} — ${new Date().toLocaleString()}`;
+
+  const attachments = [
+    {
+      filename: `Marsaan_RFQ_${Date.now()}.json`,
+      content: rfqJson,
+      contentType: 'application/json'
     }
+  ];
 
-    const f = payload?.form || {}
-    const id = crypto.randomUUID()
+  if (parsed.bom?.buffer?.length) {
+    attachments.push({
+      filename: parsed.bom.filename || `BOM_${Date.now()}`,
+      content: parsed.bom.buffer,
+      contentType: parsed.bom.mimeType || 'application/octet-stream'
+    });
+  }
 
-    // 1) Email
-    const SMTP_HOST = requireEnv('SMTP_HOST')
-    const SMTP_PORT = Number(process.env.SMTP_PORT || 465)
-    const SMTP_USER = requireEnv('SMTP_USER')
-    const SMTP_PASS = requireEnv('SMTP_PASS')
+  const text = buildEmailText(payload);
 
-    const MAIL_TO = process.env.MAIL_TO || 'rfq@marsaan.com'
-    const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER
-
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
-      auth: { user: SMTP_USER, pass: SMTP_PASS }
-    })
-
-    const subject = `[Marsaan RFQ] ${f.company || 'Company'} | ${f.name || 'Contact'} | ${id.slice(0,8)}`
-    const text = buildEmailText(payload)
-    const attachments = [
-      {
-        filename: `marsaan-rfq-${id}.json`,
-        content: Buffer.from(JSON.stringify({ id, ...payload }, null, 2)),
-        contentType: 'application/json'
-      }
-    ]
-    if(file?.buffer?.length){
-      attachments.push({
-        filename: file.filename || 'bom',
-        content: file.buffer,
-        contentType: file.mimeType
-      })
-    }
-
+  try {
     await transporter.sendMail({
       from: MAIL_FROM,
       to: MAIL_TO,
       subject,
       text,
-      replyTo: f.email || undefined,
       attachments
-    })
-
-    // 2) Optional webhook to CRM automation (Zoho Flow / Odoo / Make / Zapier)
-    const hook = process.env.LEAD_WEBHOOK_URL
-    if(hook){
-      const secret = process.env.LEAD_WEBHOOK_SECRET || ''
-      const resp = await fetch(hook, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(secret ? { 'X-Lead-Secret': secret } : {})
-        },
-        body: JSON.stringify({ id, ...payload })
-      })
-      if(!resp.ok){
-        // Don't fail the RFQ if CRM webhook fails; just log
-        console.error('Lead webhook failed:', resp.status)
-      }
-    }
-
-    return json(res, 200, { ok:true, id })
-  }catch(err){
-    console.error(err)
-    return json(res, 500, { ok:false, error: err?.message || 'Server error' })
+    });
+  } catch (e) {
+    return serverError(res, 'Email send failed. Check SMTP credentials/host/port in Vercel env vars.');
   }
+
+  // optional webhook to CRM
+  let webhook = null;
+  try {
+    webhook = await sendLeadWebhook(payload);
+  } catch (e) {
+    webhook = { sent: false, error: 'webhook_failed' };
+  }
+
+  ok(res, { message: 'RFQ received and emailed successfully.', webhook });
 }
