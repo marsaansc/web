@@ -1,141 +1,123 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useMemo, useState } from 'react'
 import data from '../data/products.json'
 
+const EXAMPLES = [
+  'FPGA-A7-35T',
+  '3.3V LDO voltage regulator',
+  'IMU sensor I2C',
+  'USB JTAG programmer'
+]
+
 export default function Home(){
-  const navigate = useNavigate()
-  const count = data?.count || 0
-  const categories = Array.from(new Set((data.products||[]).map(p=>p.category))).sort()
-  const example = '3.3V LDO voltage regulator'
+  const nav = useNavigate()
+  const [q, setQ] = useState('')
+  const products = data.products || []
+  const count = data?.count || products.length
+
+  const categories = useMemo(() => Array.from(new Set(products.map(p=>p.category))).filter(Boolean).sort(), [products])
 
   function onSearch(e){
     e.preventDefault()
-    const fd = new FormData(e.currentTarget)
-    const q = String(fd.get('q') || '').trim()
-    navigate(q ? `/catalog?q=${encodeURIComponent(q)}` : '/catalog')
+    const qq = q.trim()
+    nav(qq ? `/catalog?q=${encodeURIComponent(qq)}` : '/catalog')
   }
 
   return (
     <div>
-      <section className="hero hero-octo">
-        <div className="hero-octo-inner">
-          <div className="hero-octo-top">
-            <div className="pill" style={{borderColor:'rgba(100,210,255,.35)', color:'rgba(231,238,252,.9)'}}>
-              B2B-first • Catalog + RFQ + BOM Upload
-            </div>
-            <h1 className="hero-octo-title">The electronic parts RFQ engine for Bangalore builders.</h1>
-            <p className="hero-octo-sub">
-              Search by part number, specs, or category. Build a quote basket, upload your BOM, and get a fast, traceable response.
+      <section className="hero">
+        <div className="hero-wrap">
+          <div>
+            <h1>The electronic parts sourcing engine — built for B2B RFQ.</h1>
+            <p>
+              Search by MPN, specs, or category. Upload a BOM and get a procurement-ready quote with alternates and lead-time options.
             </p>
-          </div>
 
-          <form className="hero-search" onSubmit={onSearch}>
-            <div className="hero-search-box">
-              <span className="hero-search-icon" aria-hidden="true">⌕</span>
+            <form className="hero-search" onSubmit={onSearch}>
               <input
-                className="hero-search-input"
-                name="q"
-                placeholder="Search by keywords, tech specs, or part number"
-                defaultValue=""
-                autoComplete="off"
+                className="input"
+                placeholder="Search by keywords, specs, or part number"
+                value={q}
+                onChange={(e)=>setQ(e.target.value)}
               />
-              <button className="btn primary hero-search-btn" type="submit">Search</button>
-            </div>
-            <div className="hero-search-hint">
-              Try an example:&nbsp;
-              <button
-                type="button"
-                className="linklike"
-                onClick={()=>navigate(`/catalog?q=${encodeURIComponent(example)}`)}
-              >
-                {example}
-              </button>
-              <span className="dot">•</span>
-              <Link className="linklike" to="/rfq">Upload BOM</Link>
-              <span className="dot">•</span>
-              <Link className="linklike" to="/catalog">Browse catalog</Link>
-            </div>
-          </form>
+              <button className="btn primary" type="submit">Search</button>
+            </form>
 
-          <div className="hero-octo-kpis">
-            <div className="kpi">
-              <div className="n">{count}</div>
-              <div className="l">High-priority SKUs loaded</div>
+            <div className="hero-examples">
+              <span className="small">Try an example:</span>
+              {EXAMPLES.map(x => (
+                <button key={x} className="linkbtn" onClick={() => nav(`/catalog?q=${encodeURIComponent(x)}`)} type="button">
+                  {x}
+                </button>
+              ))}
             </div>
-            <div className="kpi">
-              <div className="n">Fast</div>
-              <div className="l">RFQ-first workflow (B2B)</div>
+
+            <div className="kpis grid" style={{gridTemplateColumns:'repeat(12,1fr)'}}>
+              <div className="kpi" style={{gridColumn:'span 4'}}>
+                <div className="n">{count}</div>
+                <div className="l">Curated SKUs available</div>
+              </div>
+              <div className="kpi" style={{gridColumn:'span 4'}}>
+                <div className="n">RFQ-first</div>
+                <div className="l">Built for procurement workflows</div>
+              </div>
+              <div className="kpi" style={{gridColumn:'span 4'}}>
+                <div className="n">Traceable</div>
+                <div className="l">Authorized-first sourcing approach</div>
+              </div>
             </div>
-            <div className="kpi">
-              <div className="n">Tiered</div>
-              <div className="l">Authorized + local stock options</div>
+          </div>
+
+          <div className="card hero-side">
+            <div className="section-title" style={{marginTop:0}}>
+              <h2>Quick actions</h2>
+              <span>B2B-first</span>
+            </div>
+            <div style={{display:'flex', gap:10, flexWrap:'wrap'}}>
+              <Link className="btn primary" to="/rfq">Upload BOM</Link>
+              <Link className="btn" to="/catalog">Browse catalog</Link>
+              <Link className="btn" to="/quality">Quality policy</Link>
+            </div>
+
+            <div className="section-title" style={{marginTop:16}}>
+              <h2>Top categories</h2>
+              <span>{categories.length} groups</span>
+            </div>
+            <div style={{display:'flex', gap:8, flexWrap:'wrap'}}>
+              {categories.slice(0, 12).map(c => (
+                <Link key={c} className="pill" to={`/catalog?category=${encodeURIComponent(c)}`}>{c}</Link>
+              ))}
+            </div>
+
+            <div className="mini-callout" style={{marginTop:16}}>
+              <b>Enterprise-ready tabs</b>
+              <div className="small" style={{marginTop:6}}>
+                Compliance, shipping/lead times, returns/RMA, and vendor documents available in the Company menu.
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section style={{marginTop:16}}>
-        <div className="section-title">
-          <h2>Quick start</h2>
-          <span>how most buyers use Marsaan</span>
-        </div>
-        <div className="grid" style={{gridTemplateColumns:'repeat(12,1fr)'}}>
-          <div className="card" style={{gridColumn:'span 4'}}>
-            <h3>1) Find parts</h3>
-            <p>Search by part number/specs or browse categories. Add items to your quote basket.</p>
-            <div style={{marginTop:10}}>
-              <Link to="/catalog" className="btn">Open Catalog</Link>
-            </div>
-          </div>
-          <div className="card" style={{gridColumn:'span 4'}}>
-            <h3>2) Upload BOM</h3>
-            <p>Share quantities, needed-by date and alternates preference. We’ll consolidate suppliers.</p>
-            <div style={{marginTop:10}}>
-              <Link to="/rfq" className="btn primary">RFQ / BOM Upload</Link>
-            </div>
-          </div>
-          <div className="card" style={{gridColumn:'span 4'}}>
-            <h3>3) Get quote</h3>
-            <p>Receive pricing + lead times + traceability notes (authorized vs local stock) in one response.</p>
-            <div style={{marginTop:10}}>
-              <Link to="/quality" className="btn">Trust & Quality</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section style={{marginTop:16}}>
+      <section>
         <div className="section-title">
           <h2>Why Marsaan</h2>
           <span>credibility for semiconductor purchasing</span>
         </div>
+
         <div className="grid" style={{gridTemplateColumns:'repeat(12,1fr)'}}>
           <div className="card" style={{gridColumn:'span 4'}}>
-            <h3>Trusted sourcing</h3>
-            <p>RFQ first to authorized distributors, then vetted local stockists for urgent needs.</p>
+            <h3>Procurement-friendly</h3>
+            <p className="muted">RFQ-first flow, BOM upload, alternates, and lead-time options for real buyers.</p>
           </div>
           <div className="card" style={{gridColumn:'span 4'}}>
-            <h3>Traceability mindset</h3>
-            <p>We capture purchase evidence, packaging photos, lot details and warranty/DOA terms per SKU.</p>
+            <h3>Authorized-first sourcing</h3>
+            <p className="muted">We prioritize authorized distributors and capture traceability evidence per SKU.</p>
           </div>
           <div className="card" style={{gridColumn:'span 4'}}>
-            <h3>BOM-to-quote workflow</h3>
-            <p>Upload a BOM and receive an actionable quote with alternates and lead-time options.</p>
+            <h3>Fast response</h3>
+            <p className="muted">Clear inputs → faster quotes. Share your BOM and we’ll respond with pricing and alternates.</p>
           </div>
-        </div>
-      </section>
-
-      <section style={{marginTop:16}}>
-        <div className="section-title">
-          <h2>Categories</h2>
-          <span>{categories.length} groups</span>
-        </div>
-        <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
-          {categories.map(c => (
-            <Link key={c} className="pill" to={`/catalog?category=${encodeURIComponent(c)}`}>{c}</Link>
-          ))}
-        </div>
-        <div style={{marginTop:12}} className="small">
-          Note: This MVP stores your quote basket locally in your browser. The RFQ form sends an email based on your deployment env configuration.
         </div>
       </section>
     </div>
