@@ -20,3 +20,9 @@
     "vite": "^5.4.3"
   }
 }
+
+"scripts": {
+  "preinstall": "npm config set registry https://registry.npmjs.org/ && npm config get registry",
+  "dev": "vite",
+  "build": "vite build"
+}
