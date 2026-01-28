@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+	"preinstall": "npm config set registry https://registry.npmjs.org/",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -21,8 +22,3 @@
   }
 }
 
-"scripts": {
-  "preinstall": "npm config set registry https://registry.npmjs.org/ && npm config get registry",
-  "dev": "vite",
-  "build": "vite build"
-}
