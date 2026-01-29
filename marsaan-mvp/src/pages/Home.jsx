@@ -1,10 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom'
 import data from '../data/products.json'
+import worldCoast from '../assets/world-coast.png'
 
 function ChipIllustration(){
   // Lightweight inline SVG so we don't depend on external assets (keeps build stable).
   return (
-    <svg
+    <div className="hero-chip-wrap">
+      <img className="hero-worldmap-img" src={worldCoast} alt="" loading="lazy" />
+      <svg
       className="home-hero-illustration"
       viewBox="0 0 720 520"
       fill="none"
@@ -150,6 +153,7 @@ function ChipIllustration(){
         ))}
       </g>
     </svg>
+    </div>
   )
 }
 

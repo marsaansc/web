@@ -376,3 +376,27 @@ a{color:inherit;text-decoration:none}
 
 /* Brand word pill */
 .brand-word{display:inline-block;font-weight:800;letter-spacing:0.2px;background:#2563EB;color:#fff;padding:6px 10px;border-radius:10px;line-height:1;}
+
+
+/* Real world map (raster CC0) + overlays */
+.worldmap-wrap{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(180deg,#F7FAFF, #FFFFFF);border:1px solid rgba(37,99,235,.10);}
+.worldmap{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:contrast(1) saturate(1);}
+.worldmap.coast{opacity:.28;}
+.worldmap.borders{opacity:.18;mix-blend-mode:multiply;}
+.map-overlay{position:relative;width:100%;height:100%;display:block;}
+.map-label{font-size:18px;fill:rgba(15,23,42,.65);font-weight:600;}
+.map-arc{fill:none;stroke:rgba(37,99,235,.55);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:8 12;animation:dashMove 3.8s linear infinite;}
+.map-arc.arc2{opacity:.85;animation-delay:.25s}
+.map-arc.arc3{opacity:.65;animation-delay:.5s}
+.map-node{fill:rgba(37,99,235,.95);filter:drop-shadow(0 10px 18px rgba(37,99,235,.25));animation:pulseNode 1.9s ease-in-out infinite;}
+.map-node.n2{animation-delay:.2s}
+.map-node.n3{animation-delay:.4s}
+@keyframes dashMove{to{stroke-dashoffset:-420;}}
+@keyframes pulseNode{0%,100%{transform:scale(1);opacity:.95;}50%{transform:scale(1.28);opacity:.65;}}
+
+/* Home hero: world map behind chip */
+.hero-chip-wrap{position:relative;isolation:isolate;}
+.hero-worldmap-img{position:absolute;inset:-18% -14% auto -14%;width:128%;height:auto;opacity:.22;filter:blur(0px);z-index:0;pointer-events:none;}
+.hero-chip-wrap svg{position:relative;z-index:1;}
+
+.map-right .worldmap-wrap{width:100%;min-height:260px;aspect-ratio:2048/997;}
