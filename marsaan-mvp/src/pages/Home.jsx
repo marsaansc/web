@@ -79,25 +79,6 @@ function ChipIllustration(){
           <circle key={i} cx={p.x} cy={p.y} r="6" />
         ))}
       </g>
-<use href="#world-land-hero" fill="none" stroke="#9BBEFF" strokeWidth="3.2" opacity="0.18" strokeLinejoin="round" strokeLinecap="round" />
-        <use href="#world-land-hero" fill="url(#mapFillHero)" stroke="#C7DBFF" strokeWidth="1.2" opacity="0.92" strokeLinejoin="round" strokeLinecap="round" />
-
-      {/* faint internal boundary hints */}
-      <g className="hero-borders" fill="none" stroke="#D6E6FF" strokeWidth="0.9" opacity="0.16" strokeDasharray="4 8" strokeLinecap="round">
-        <path d="M 210 265 C 260 235, 310 235, 360 265" />
-        <path d="M 310 300 C 360 280, 410 285, 455 315" />
-        <path d="M 430 250 C 480 235, 525 240, 560 265" />
-        <path d="M 560 315 C 610 295, 665 300, 710 330" />
-        <path d="M 705 205 C 760 210, 820 240, 860 285" />
-        <path d="M 820 315 C 865 305, 910 320, 955 350" />
-        <path d="M 930 395 C 975 390, 1030 410, 1060 440" />
-        <path d="M 235 410 C 280 390, 325 395, 370 425" />
-        <path d="M 375 460 C 420 445, 470 455, 510 485" />
-        <path d="M 860 455 C 900 445, 945 455, 980 480" />
-      </g>
-        <path className="hero-arc ha1" d="M 210 245 C 390 140, 560 140, 700 220" />
-                <path className="hero-arc ha2" d="M 320 410 C 520 320, 720 300, 940 430" />
-      </g>
       {/* chip */}
       <g filter="url(#shadow)">
         {/* body */}
