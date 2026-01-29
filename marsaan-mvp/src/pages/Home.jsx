@@ -23,6 +23,36 @@ function ChipIllustration(){
         <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="14" />
         </filter>
+        <linearGradient id="chipBody" x1="250" y1="150" x2="490" y2="390" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#FFFFFF" />
+          <stop offset="0.45" stopColor="#EAF2FF" />
+          <stop offset="1" stopColor="#CFE0FF" />
+        </linearGradient>
+        <linearGradient id="chipInner" x1="278" y1="178" x2="462" y2="362" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#FFFFFF" stopOpacity="0.95" />
+          <stop offset="1" stopColor="#E6EEFF" stopOpacity="0.85" />
+        </linearGradient>
+        <radialGradient id="chipCore" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(370 270) rotate(90) scale(120)">
+          <stop stopColor="#2563EB" stopOpacity="0.18" />
+          <stop offset="1" stopColor="#2563EB" stopOpacity="0.03" />
+        </radialGradient>
+        <linearGradient id="pinGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop stopColor="#BFD7FF" />
+          <stop offset="1" stopColor="#8BB6FF" />
+        </linearGradient>
+        <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="18" stdDeviation="18" floodColor="#0B2A6B" floodOpacity="0.18"/>
+          <feDropShadow dx="0" dy="6" stdDeviation="6" floodColor="#0B2A6B" floodOpacity="0.10"/>
+        </filter>
+        <filter id="innerGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2" result="blur2" />
+          <feColorMatrix in="blur2" type="matrix" values="
+            1 0 0 0 0
+            0 1 0 0 0
+            0 0 1 0 0
+            0 0 0 12 -6" result="glow"/>
+          <feComposite in="glow" in2="SourceGraphic" operator="over"/>
+        </filter>
       </defs>
 
       {/* soft background blob */}
@@ -47,12 +77,30 @@ function ChipIllustration(){
       </g>
 
       {/* chip */}
-      <rect x="250" y="150" width="240" height="240" rx="28" fill="url(#g1)" />
-      <rect x="278" y="178" width="184" height="184" rx="22" fill="#FFFFFF" opacity="0.88" />
-      <rect x="302" y="202" width="136" height="136" rx="18" fill="#2563EB" opacity="0.10" />
+      <g filter="url(#shadow)">
+        {/* body */}
+        <rect x="250" y="150" width="240" height="240" rx="28" fill="url(#chipBody)" />
+        {/* bevel */}
+        <path
+          d="M278 156h184c13 0 24 11 24 24v184c0 13-11 24-24 24H278c-13 0-24-11-24-24V180c0-13 11-24 24-24Z"
+          fill="#FFFFFF"
+          opacity="0.22"
+        />
+        {/* inner frame */}
+        <rect x="278" y="178" width="184" height="184" rx="22" fill="url(#chipInner)" />
+        {/* core */}
+        <rect x="302" y="202" width="136" height="136" rx="18" fill="url(#chipCore)" filter="url(#innerGlow)" />
+      </g>
+
+      {/* highlight sweep */}
+      <path
+        d="M262 206c44-44 108-70 178-68 28 1 54 6 76 16-52-2-106 19-150 57-38 33-61 74-69 118-10-18-15-39-15-62 0-22 5-42 14-61z"
+        fill="#FFFFFF"
+        opacity="0.12"
+      />
 
       {/* pins */}
-      <g fill="#B9D6FF">
+      <g fill="url(#pinGrad)">
         {Array.from({length:10}).map((_,i)=> (
           <rect key={`t${i}`} x={278 + i*18} y="134" width="10" height="22" rx="4" />
         ))}
