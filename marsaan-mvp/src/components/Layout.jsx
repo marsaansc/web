@@ -6,7 +6,7 @@ export default function Layout({ children }) {
       <header className="nav">
         <div className="container nav-inner">
           <Link to="/" className="brand">
-            <span style={{fontSize:18}}>Marsaan</span>
+            <span className="brand-word">Marsaan</span>
             <span className="badge">Semiconductor Supply — MVP</span>
           </Link>
           <nav className="nav-links">
