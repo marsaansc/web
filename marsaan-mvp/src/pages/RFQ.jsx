@@ -41,61 +41,27 @@ export default function RFQ(){
 
   const hasLines = useMemo(()=> (cart||[]).length > 0, [cart])
 
-  const [submitting, setSubmitting] = useState(false)
-  const [status, setStatus] = useState(null)
-  const [lastPayload, setLastPayload] = useState(null)
-
-  async function onSubmit(e){
-    e.preventDefault()
-    setStatus(null)
-    setLastPayload(null)
-
-    const payload = {
-      submittedAt: new Date().toISOString(),
-      form,
-      cart,
-      bomFile: bomFile ? { name: bomFile.name, size: bomFile.size, type: bomFile.type } : null
-    }
-
-    // Production behavior: send RFQ + BOM to Vercel serverless function (/api/rfq)
-    // If the server responds with an error, show the message and allow manual JSON download.
-    // Only auto-download if the network call itself fails.
-    try{
-      setSubmitting(true)
-      const fd = new FormData()
-      fd.append('rfq', JSON.stringify(payload))
-      if(bomFile) fd.append('bom', bomFile)
-
-      const r = await fetch('/api/rfq', { method: 'POST', body: fd })
-      const j = await r.json().catch(()=>null)
-
-      if(!r.ok || !j?.ok){
-        const msg = j?.error || `Submission failed (${r.status})`
-        setLastPayload(payload)
-        setStatus({ type:'warn', msg: msg })
-        return
-      }
-
-      setStatus({ type:'ok', msg:'RFQ submitted. You will receive an email at rfq@marsaan.com shortly.' })
-      // clear cart after submit (optional)
-      // localStorage.removeItem('marsaan_quote_cart')
-      // setCart([])
-      return
-    }catch(err){
-      // Network or unexpected runtime error: keep the RFQ locally and allow manual download.
-      setLastPayload(payload)
-      setStatus({ type:'warn', msg:`RFQ endpoint request failed: ${err?.message || 'Unknown error'}. You can download the RFQ JSON and email it manually.` })
-    }finally{
-      setSubmitting(false)
-    }
-  }
-
-
   function onRemove(sku){
     setCart(removeFromCart(sku))
   }
   function onQty(sku, qty){
     setCart(updateQty(sku, qty))
+  }
+
+  function onSubmit(e){
+    e.preventDefault()
+
+    const payload = {
+      submittedAt: new Date().toISOString(),
+      form,
+      cart,
+      bomFile: bomFile ? { name: bomFile.name, size: bomFile.size, type: bomFile.type } : null,
+      nextStep: "Send this JSON + BOM file to rfq@marsaan.com OR connect this form to Formspree/Netlify/Vercel function."
+    }
+
+    // MVP behavior: download RFQ JSON so you can email it with the BOM file.
+    downloadText(`Marsaan_RQ_${Date.now()}.json`, JSON.stringify(payload, null, 2))
+    alert("RFQ saved as a JSON download. Next: email the JSON + BOM file to rfq@marsaan.com, or connect a form endpoint.")
   }
 
   return (
@@ -110,7 +76,8 @@ export default function RFQ(){
 
         <form className="card" onSubmit={onSubmit}>
           <h3>Lead capture</h3>
-          <p>Fill these details and submit. This form is connected to a Vercel backend endpoint that emails your RFQ to rfq@marsaan.com. If the endpoint fails, you can download the RFQ JSON and email it manually.</p>
+          <p>Fill these details and submit. In this MVP template, the RFQ downloads as JSON so you can email it to your inbox.
+             Later, connect this to a real backend or form endpoint.</p>
 
           <div className="toolbar">
             <input className="input" placeholder="Company / Lab / Institute" value={form.company}
@@ -153,33 +120,14 @@ export default function RFQ(){
                       value={form.notes} onChange={(e)=>setForm({...form, notes:e.target.value})} />
           </div>
 
-          {status && (
-            <div className={status.type === 'ok' ? 'notice success' : 'notice warning'} style={{marginTop:10}}>
-              <div style={{display:'flex',gap:10,alignItems:'center',flexWrap:'wrap'}}>
-                <span>{status.msg}</span>
-                {lastPayload && (
-                  <button
-                    type="button"
-                    className="btn"
-                    onClick={() => downloadText(`Marsaan_RFQ_${Date.now()}.json`, JSON.stringify(lastPayload, null, 2))}
-                  >
-                    Download RFQ JSON
-                  </button>
-                )}
-                {status.type !== 'ok' && (
-                  <a className="btn" href="/api/health" target="_blank" rel="noreferrer">Check /api/health</a>
-                )}
-              </div>
-            </div>
-          )}
           <div style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:12}}>
-            <button className="btn primary" type="submit" disabled={submitting || (!hasLines && !bomFile)}>Submit RFQ</button>
+            <button className="btn primary" type="submit" disabled={!hasLines && !bomFile}>Submit RFQ</button>
             <Link className="btn" to="/catalog">Add products</Link>
             <Link className="btn" to="/quality">See Quality policy</Link>
           </div>
 
           <div className="small" style={{marginTop:10}}>
-            Production integration: Vercel serverless function → email to rfq@marsaan.com + optional webhook to Zoho/Odoo CRM.
+            Production integration ideas: Formspree / Netlify Forms / Vercel serverless function → email to rfq@marsaan.com + save to CRM.
           </div>
         </form>
       </div>
