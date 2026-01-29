@@ -378,25 +378,146 @@ a{color:inherit;text-decoration:none}
 .brand-word{display:inline-block;font-weight:800;letter-spacing:0.2px;background:#2563EB;color:#fff;padding:6px 10px;border-radius:10px;line-height:1;}
 
 
-/* Real world map (raster CC0) + overlays */
-.worldmap-wrap{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(180deg,#F7FAFF, #FFFFFF);border:1px solid rgba(37,99,235,.10);}
-.worldmap{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:contrast(1) saturate(1);}
-.worldmap.coast{opacity:.28;}
-.worldmap.borders{opacity:.18;mix-blend-mode:multiply;}
-.map-overlay{position:relative;width:100%;height:100%;display:block;}
-.map-label{font-size:18px;fill:rgba(15,23,42,.65);font-weight:600;}
-.map-arc{fill:none;stroke:rgba(37,99,235,.55);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:8 12;animation:dashMove 3.8s linear infinite;}
-.map-arc.arc2{opacity:.85;animation-delay:.25s}
-.map-arc.arc3{opacity:.65;animation-delay:.5s}
-.map-node{fill:rgba(37,99,235,.95);filter:drop-shadow(0 10px 18px rgba(37,99,235,.25));animation:pulseNode 1.9s ease-in-out infinite;}
-.map-node.n2{animation-delay:.2s}
-.map-node.n3{animation-delay:.4s}
-@keyframes dashMove{to{stroke-dashoffset:-420;}}
-@keyframes pulseNode{0%,100%{transform:scale(1);opacity:.95;}50%{transform:scale(1.28);opacity:.65;}}
 
-/* Home hero: world map behind chip */
-.hero-chip-wrap{position:relative;isolation:isolate;}
-.hero-worldmap-img{position:absolute;inset:-18% -14% auto -14%;width:128%;height:auto;opacity:.22;filter:blur(0px);z-index:0;pointer-events:none;}
-.hero-chip-wrap svg{position:relative;z-index:1;}
+/* ===== Full-width hero (SIA-style) ===== */
+.page-hero{
+  width:100%;
+  padding:48px 16px;
+  background:
+    radial-gradient(900px 320px at 85% 30%, rgba(37,99,235,.22), rgba(37,99,235,0)),
+    linear-gradient(90deg, #0b4dd8 0%, #0a67e9 45%, #0b4dd8 100%);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.page-hero:before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 20% 40%, rgba(255,255,255,.18), rgba(255,255,255,0) 55%),
+    radial-gradient(circle at 70% 20%, rgba(255,255,255,.12), rgba(255,255,255,0) 60%);
+  opacity:.9;
+  pointer-events:none;
+}
+.page-hero-inner{
+  max-width:1180px;
+  margin:0 auto;
+  position:relative;
+}
+.page-hero-top{
+  display:flex;
+  gap:18px;
+  align-items:flex-end;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+.breadcrumbs{
+  font-size:12px;
+  opacity:.92;
+  margin-bottom:10px;
+}
+.breadcrumbs a{ color:rgba(255,255,255,.92); text-decoration:none; }
+.bc-sep{ margin:0 8px; opacity:.7; }
+.kicker{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  opacity:.95;
+}
+.page-hero-title{
+  margin:10px 0 0;
+  font-size:42px;
+  line-height:1.08;
+  letter-spacing:-.02em;
+}
+.page-hero-sub{
+  margin:12px 0 0;
+  max-width:72ch;
+  color:rgba(255,255,255,.88);
+  font-size:15px;
+  line-height:1.6;
+}
+.page-hero-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.hero-actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+.hero-search{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.hero-search-input{
+  width:min(520px, 86vw);
+  padding:12px 12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  outline:none;
+}
+.hero-search-input::placeholder{ color:rgba(255,255,255,.75); }
 
-.map-right .worldmap-wrap{width:100%;min-height:260px;aspect-ratio:2048/997;}
+/* ===== Watermark image background (Catalog / Product) ===== */
+.watermark{ position:relative; }
+.watermark:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image: var(--wm1), var(--wm2), var(--wm3);
+  background-size: cover, cover, cover;
+  background-position: center, right center, left center;
+  background-repeat:no-repeat;
+  opacity:0.10;
+  filter: saturate(1.05) contrast(1.02);
+  pointer-events:none;
+}
+.watermark:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(247,251,255,.92), rgba(247,251,255,.70)),
+    radial-gradient(900px 380px at 70% 20%, rgba(37,99,235,.10), rgba(37,99,235,0));
+  pointer-events:none;
+}
+.watermark > *{ position:relative; }
+
+/* ===== Subtle animated arcs (CSS-only) ===== */
+.map-arc{
+  fill:none;
+  stroke: rgba(37,99,235,.62);
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-dasharray:6 10;
+  animation: dashMove 3.8s linear infinite;
+}
+.arc2{ opacity:.85; animation-delay:.25s; }
+.arc3{ opacity:.65; animation-delay:.55s; }
+
+.map-node{
+  fill: rgba(37,99,235,.92);
+  filter: drop-shadow(0 8px 16px rgba(37,99,235,.20));
+  animation: pulseNode 1.9s ease-in-out infinite;
+}
+.n2{ animation-delay:.2s; }
+.n3{ animation-delay:.4s; }
+
+@keyframes dashMove{ to{ stroke-dashoffset:-320; } }
+@keyframes pulseNode{
+  0%,100%{ transform:scale(1); opacity:.95; }
+  50%{ transform:scale(1.28); opacity:.65; }
+}
+
+/* Make catalog/product content feel more “full page” */
+.catalog-shell, .product-shell{
+  max-width:1180px;
+  margin: -28px auto 0; /* pull up under hero */
+  padding: 0 16px 56px;
+}

@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import data from '../data/products.json'
+import PageHero from '../components/PageHero.jsx'
+import aiBg from '../assets/ai-edge-board.jpg'
+import fpgaBg from '../assets/fpga.jpg'
+import mcuBg from '../assets/microcontroller.jpg'
 import { addToCart } from '../components/QuoteCart.jsx'
 
 function fmtINR(n){
@@ -77,7 +81,26 @@ export default function Catalog(){
   }
 
   return (
-    <div className="catalog-shell">
+    <>
+      <PageHero
+        kicker="Semiconductor Supply — Catalog"
+        title="Catalog"
+        subtitle="Search by part number, specs, or category. Add items to your quote basket and request an RFQ in minutes."
+        crumbs={[{ label: 'Home', to: '/' }, { label: 'Catalog' }]}
+        actions={
+          <div className="hero-search">
+            <input
+              className="hero-search-input"
+              value={q}
+              onChange={(e)=>setQ(e.target.value)}
+              placeholder="Search parts (MPN, specs, keywords)…"
+            />
+            <Link className="btn primary" to="/rfq">Upload BOM</Link>
+          </div>
+        }
+      />
+      <div className="catalog-shell">
+
       {/* LEFT FILTERS (DigiKey/Arrow style) */}
       <aside className="catalog-filters">
         <div className="filter-head">
@@ -135,7 +158,7 @@ export default function Catalog(){
       </aside>
 
       {/* RIGHT RESULTS */}
-      <section className="catalog-results">
+      <section className="catalog-results watermark" style={{"--wm1": `url(${aiBg})`, "--wm2": `url(${fpgaBg})`, "--wm3": `url(${mcuBg})`}}>
         <div className="results-head">
           <div>
             <h2 style={{margin:'0 0 4px'}}>Parts</h2>
@@ -236,6 +259,7 @@ export default function Catalog(){
           </div>
         )}
       </section>
-    </div>
+      </div>
+    </>
   )
 }

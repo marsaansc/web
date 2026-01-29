@@ -1,33 +1,60 @@
 import { useMemo } from 'react'
 
-import worldCoast from '../assets/world-coast.png'
-import worldBorders from '../assets/world-borders.png'
 
-function RealWorldMap() {
+function CoastlineWorldMap() {
   return (
-    <div className="worldmap-wrap" role="img" aria-label="Global world map">
-      <img className="worldmap coast" src={worldCoast} alt="" loading="lazy" />
-      <img className="worldmap borders" src={worldBorders} alt="" loading="lazy" />
+    <svg viewBox="0 0 1200 600" className="map-illus" role="img" aria-label="Sourcing workflow illustration">
+      <defs>
+        <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.9" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0.2" />
+        </linearGradient>
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="10" stdDeviation="18" floodColor="#0B2A6F" floodOpacity="0.08" />
+        </filter>
+      </defs>
 
-      <svg className="map-overlay" viewBox="0 0 2048 997" aria-hidden="true">
-        {/* Routes */}
-        <path className="map-arc arc1" d="M320,430 C720,300 980,340 1100,310" />
-        <path className="map-arc arc2" d="M1100,310 C1340,250 1520,320 1650,430" />
-        <path className="map-arc arc3" d="M320,430 C760,610 1220,610 1650,430" />
+      {/* Background */}
+      <rect x="24" y="24" width="1152" height="552" rx="22" fill="#ffffff" filter="url(#softShadow)" />
+      <rect x="24" y="360" width="1152" height="216" rx="22" fill="#F6FAFF" />
 
-        {/* Nodes */}
-        <circle className="map-node n1" cx="320" cy="430" r="8" />
-        <circle className="map-node n2" cx="1100" cy="310" r="8" />
-        <circle className="map-node n3" cx="1650" cy="430" r="8" />
+      {/* Subtle grid */}
+      <g opacity="0.18">
+        {Array.from({length: 16}).map((_,i)=>(
+          <line key={'v'+i} x1={80 + i*70} y1="90" x2={80 + i*70} y2="540" stroke="#2563eb" strokeWidth="1" />
+        ))}
+        {Array.from({length: 8}).map((_,i)=>(
+          <line key={'h'+i} x1="80" y1={120 + i*55} x2="1120" y2={120 + i*55} stroke="#2563eb" strokeWidth="1" />
+        ))}
+      </g>
 
-        {/* Labels */}
-        <text className="map-label" x="345" y="420">Authorized</text>
-        <text className="map-label" x="1125" y="300">Vetting</text>
-        <text className="map-label" x="1600" y="455">Bangalore</text>
-      </svg>
-    </div>
+      {/* Animated arcs */}
+      <g className="map-arcs">
+        <path className="map-arc arc1" d="M180,370 C360,260 470,250 610,210" />
+        <path className="map-arc arc2" d="M610,210 C760,170 860,190 1010,250" />
+        <path className="map-arc arc3" d="M180,370 C520,430 760,420 1010,250" />
+      </g>
+
+      {/* Nodes */}
+      <g>
+        <circle className="map-node n1" cx="180" cy="370" r="7" />
+        <circle className="map-node n2" cx="610" cy="210" r="7" />
+        <circle className="map-node n3" cx="1010" cy="250" r="7" />
+
+        <text x="145" y="400" fontSize="14" fill="#0b1324" opacity="0.9">Authorized</text>
+        <text x="585" y="240" fontSize="14" fill="#0b1324" opacity="0.9">Vetting</text>
+        <text x="980" y="280" fontSize="14" fill="#0b1324" opacity="0.9">Bangalore</text>
+      </g>
+
+      {/* Caption */}
+      <g opacity="0.85">
+        <text x="70" y="120" fontSize="18" fontWeight="700" fill="#0b1324">Tiered sourcing workflow</text>
+        <text x="70" y="148" fontSize="13" fill="#42526e">Authorized distributors first → vetted local stock → best lead time</text>
+      </g>
+    </svg>
   )
 }
+
 
 export default function Sourcing() {
   const toc = useMemo(
@@ -107,7 +134,7 @@ export default function Sourcing() {
               </div>
 
               <div className="map-right">
-                <RealWorldMap />
+                <CoastlineWorldMap />
               </div>
             </div>
           </section>

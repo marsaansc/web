@@ -1,6 +1,10 @@
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import data from '../data/products.json'
+import PageHero from '../components/PageHero.jsx'
+import aiBg from '../assets/ai-edge-board.jpg'
+import fpgaBg from '../assets/fpga.jpg'
+import mcuBg from '../assets/microcontroller.jpg'
 import { addToCart } from '../components/QuoteCart.jsx'
 
 function LinkLine({ label, url, price }){
@@ -21,6 +25,14 @@ export default function Product(){
   const location = useLocation()
   const navigate = useNavigate()
   const p = (data.products || []).find(x => x.sku === sku)
+
+  const bg = useMemo(() => {
+    const c = String(p?.category || '').toLowerCase()
+    if(c.includes('fpga')) return fpgaBg
+    if(c.includes('micro')) return mcuBg
+    if(c.includes('mcu')) return mcuBg
+    return aiBg
+  }, [p])
 
   const tabFromHash = useMemo(() => {
     const h = (location.hash || '').replace('#','').trim()
@@ -72,7 +84,21 @@ export default function Product(){
   }
 
   return (
-    <div className="product-shell">
+    <>
+      <PageHero
+        kicker="Product details"
+        title={p ? (p.name || p.mpn || p.sku) : 'Product'}
+        subtitle={p ? `${p.category || ''}${p.manufacturer ? ' • ' + p.manufacturer : ''}${p.mpn ? ' • ' + p.mpn : ''}` : 'Looking up SKU…'}
+        crumbs={[{ label: 'Home', to: '/' }, { label: 'Catalog', to: '/catalog' }, { label: sku }]}
+        actions={
+          <div className="hero-actions">
+            <Link className="btn" to="/catalog">Back to Catalog</Link>
+            <Link className="btn primary" to="/rfq">Upload BOM</Link>
+          </div>
+        }
+      />
+      <div className="product-shell watermark" style={{"--wm1": `url(${bg})`, "--wm2": `url(${fpgaBg})`}}>
+
       {/* Header */}
       <div className="product-head">
         <div style={{minWidth:0}}>
@@ -289,6 +315,7 @@ export default function Product(){
           </div>
         </aside>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
