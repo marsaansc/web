@@ -3,6 +3,7 @@ import data from '../data/products.json'
 import aiImg from '../assets/ai-edge-board.jpg'
 import fpgaImg from '../assets/fpga.jpg'
 import mcuImg from '../assets/microcontroller.jpg'
+import heroBg from '../assets/marshaan.jpg'
 
 function ChipIllustration(){
   // Lightweight inline SVG so we don't depend on external assets (keeps build stable).
@@ -150,7 +151,7 @@ function pickCatBg(category){
   return (
     <div>
       {/* FULL-BLEED, LIGHT HERO */}
-      <section className="fullbleed home-hero">
+      <section className="fullbleed home-hero" style={{"--heroBg": `url(${heroBg})`}}>
         <div className="container home-hero-inner">
           <div className="home-hero-copy">
             <div className="pill pill-accent">Semiconductor Supply • Authorized + Local • Traceability-first</div>

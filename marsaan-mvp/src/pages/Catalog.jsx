@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import data from '../data/products.json'
-import PageHero from '../components/PageHero.jsx'
 import aiBg from '../assets/ai-edge-board.jpg'
 import fpgaBg from '../assets/fpga.jpg'
 import mcuBg from '../assets/microcontroller.jpg'
@@ -82,23 +81,25 @@ export default function Catalog(){
 
   return (
     <>
-      <PageHero
-        kicker="Semiconductor Supply — Catalog"
-        title="Catalog"
-        subtitle="Search by part number, specs, or category. Add items to your quote basket and request an RFQ in minutes."
-        crumbs={[{ label: 'Home', to: '/' }, { label: 'Catalog' }]}
-        actions={
-          <div className="hero-search">
-            <input
-              className="hero-search-input"
-              value={q}
-              onChange={(e)=>setQ(e.target.value)}
-              placeholder="Search parts (MPN, specs, keywords)…"
-            />
-            <Link className="btn primary" to="/rfq">Upload BOM</Link>
+<Link className="btn primary" to="/rfq">Upload BOM</Link>
           </div>
         }
       />
+      <div className="catalog-topbar">
+        <div className="container">
+          <div className="crumbs"><Link to="/">Home</Link> <span className="sep">/</span> <span>Catalog</span></div>
+          <div className="topbar-row">
+            <div>
+              <h1 className="page-title">Catalog</h1>
+              <div className="page-sub">Search by part number, specs, or category. Add items to your quote basket and request an RFQ.</div>
+            </div>
+            <div className="topbar-actions">
+              <Link className="btn btn-primary" to="/rfq">Upload BOM</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="catalog-shell">
 
       {/* LEFT FILTERS (DigiKey/Arrow style) */}
