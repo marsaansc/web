@@ -402,24 +402,25 @@ a{color:inherit;text-decoration:none}
 
 
 
-/* ===== Full-width hero (SIA-style) ===== */
+/* ===== Full-width hero (Neutral / light) ===== */
 .page-hero{
   width:100%;
-  padding:48px 16px;
+  padding:40px 16px;
   background:
-    radial-gradient(900px 320px at 85% 30%, rgba(37,99,235,.22), rgba(37,99,235,0)),
-    linear-gradient(90deg, #0b4dd8 0%, #0a67e9 45%, #0b4dd8 100%);
-  color:#fff;
+    radial-gradient(900px 320px at 85% 30%, rgba(0,0,0,.04), rgba(0,0,0,0)),
+    linear-gradient(180deg, #ffffff 0%, #f6f9ff 100%);
+  color:#0f172a;
   position:relative;
   overflow:hidden;
+  border-bottom:1px solid rgba(15,23,42,.08);
 }
 .page-hero:before{
   content:"";
   position:absolute; inset:0;
   background:
-    radial-gradient(circle at 20% 40%, rgba(255,255,255,.18), rgba(255,255,255,0) 55%),
-    radial-gradient(circle at 70% 20%, rgba(255,255,255,.12), rgba(255,255,255,0) 60%);
-  opacity:.9;
+    radial-gradient(circle at 18% 35%, rgba(37,99,235,.08), rgba(37,99,235,0) 55%),
+    radial-gradient(circle at 70% 20%, rgba(2,132,199,.06), rgba(2,132,199,0) 60%);
+  opacity:1;
   pointer-events:none;
 }
 .page-hero-inner{
