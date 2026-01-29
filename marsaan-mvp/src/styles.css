@@ -332,3 +332,43 @@ a{color:inherit;text-decoration:none}
 .notice.warning{
   border-color: rgba(255,214,102,0.6);
 }
+
+
+/* Animated arcs (CSS-only, safe) */
+.map-arc{
+  fill:none;
+  stroke:#2F6BFF;
+  stroke-width:2.2;
+  opacity:.55;
+  stroke-linecap:round;
+  stroke-dasharray:6 10;
+  animation:dashFlow 6.5s linear infinite;
+}
+.map-arc.arc-2{opacity:.45; stroke-dasharray:8 14; animation-duration:8.2s;}
+.map-arc.arc-3{opacity:.35; stroke-dasharray:10 18; animation-duration:10.5s;}
+@keyframes dashFlow{to{stroke-dashoffset:-260;}}
+
+.map-node{
+  fill:#2F6BFF;
+  opacity:.9;
+  animation:nodePulse 2.8s ease-in-out infinite;
+  transform-origin:center;
+}
+.map-nodes text{opacity:.85}
+@keyframes nodePulse{
+  0%,100%{transform:scale(1); opacity:.9}
+  50%{transform:scale(1.25); opacity:1}
+}
+
+/* Home hero subtle arcs */
+.hero-arc{
+  fill:none;
+  stroke:#2F6BFF;
+  stroke-width:2;
+  opacity:.40;
+  stroke-linecap:round;
+  stroke-dasharray:7 12;
+  animation:dashFlow 7.5s linear infinite;
+}
+.hero-arc.ha2{opacity:.28; animation-duration:9.8s;}
+
