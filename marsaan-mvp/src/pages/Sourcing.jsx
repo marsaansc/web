@@ -2,54 +2,64 @@ import { useMemo } from 'react'
 
 
 function CoastlineWorldMap() {
+  // NOTE: This is intentionally NOT a geographic map.
+  // It's a clean “sourcing workflow” illustration (no Bangalore/world visuals).
   return (
     <svg viewBox="0 0 1200 600" className="map-illus" role="img" aria-label="Sourcing workflow illustration">
       <defs>
-        <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0.2" />
+        <linearGradient id="bgWash" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#f7fbff" />
+          <stop offset="1" stopColor="#eef5ff" />
         </linearGradient>
-        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="10" stdDeviation="18" floodColor="#0B2A6F" floodOpacity="0.08" />
-        </filter>
+        <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+          <stop offset="0" stopColor="#2563eb" stopOpacity="0.18" />
+          <stop offset="1" stopColor="#2563eb" stopOpacity="0" />
+        </radialGradient>
       </defs>
 
       {/* Background */}
-      <rect x="24" y="24" width="1152" height="552" rx="22" fill="#ffffff" filter="url(#softShadow)" />
-      <rect x="24" y="360" width="1152" height="216" rx="22" fill="#F6FAFF" />
-
-      {/* Subtle grid */}
-      <g opacity="0.18">
-        {Array.from({length: 16}).map((_,i)=>(
-          <line key={'v'+i} x1={80 + i*70} y1="90" x2={80 + i*70} y2="540" stroke="#2563eb" strokeWidth="1" />
+      <rect x="0" y="0" width="1200" height="600" fill="url(#bgWash)" />
+      <g opacity="0.28">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <line key={'h'+i} x1="0" y1={40 + i*26} x2="1200" y2={40 + i*26} stroke="#94a3b8" strokeWidth="1" />
         ))}
-        {Array.from({length: 8}).map((_,i)=>(
-          <line key={'h'+i} x1="80" y1={120 + i*55} x2="1120" y2={120 + i*55} stroke="#2563eb" strokeWidth="1" />
+        {Array.from({ length: 24 }).map((_, i) => (
+          <line key={'v'+i} x1={30 + i*50} y1="0" x2={30 + i*50} y2="600" stroke="#94a3b8" strokeWidth="1" />
         ))}
       </g>
 
-      {/* Animated arcs */}
-      <g className="map-arcs">
-        <path className="map-arc arc1" d="M180,370 C360,260 470,250 610,210" />
-        <path className="map-arc arc2" d="M610,210 C760,170 860,190 1010,250" />
-        <path className="map-arc arc3" d="M180,370 C520,430 760,420 1010,250" />
-      </g>
+      {/* Soft glow behind the flow */}
+      <circle cx="620" cy="300" r="260" fill="url(#glow)" />
+
+      {/* Animated arcs (CSS) */}
+      <path className="map-arc arc1" d="M 220 320 C 420 190, 540 190, 700 270" />
+      <path className="map-arc arc2" d="M 700 270 C 860 340, 980 360, 1050 300" />
+      <path className="map-arc arc3" d="M 220 320 C 520 440, 820 450, 1050 300" />
 
       {/* Nodes */}
       <g>
-        <circle className="map-node n1" cx="180" cy="370" r="7" />
-        <circle className="map-node n2" cx="610" cy="210" r="7" />
-        <circle className="map-node n3" cx="1010" cy="250" r="7" />
-
-        <text x="145" y="400" fontSize="14" fill="#0b1324" opacity="0.9">Authorized</text>
-        <text x="585" y="240" fontSize="14" fill="#0b1324" opacity="0.9">Vetting</text>
-        <text x="980" y="280" fontSize="14" fill="#0b1324" opacity="0.9">Bangalore</text>
+        <circle className="map-node n1" cx="220" cy="320" r="9" />
+        <circle className="map-node n2" cx="700" cy="270" r="9" />
+        <circle className="map-node n3" cx="1050" cy="300" r="9" />
       </g>
 
-      {/* Caption */}
-      <g opacity="0.85">
-        <text x="70" y="120" fontSize="18" fontWeight="700" fill="#0b1324">Tiered sourcing workflow</text>
-        <text x="70" y="148" fontSize="13" fill="#42526e">Authorized distributors first → vetted local stock → best lead time</text>
+      {/* Labels */}
+      <g fontFamily="ui-sans-serif, system-ui" fontSize="16" fill="#0b1324" opacity="0.92">
+        <text x="170" y="292">Tier-1 Authorized</text>
+        <text x="646" y="242">Vetting</text>
+        <text x="980" y="272">Quote &amp; Delivery</text>
+      </g>
+
+      {/* Legend chips */}
+      <g fontFamily="ui-sans-serif, system-ui" fontSize="14" fill="#0b1324" opacity="0.9">
+        <rect x="60" y="470" width="330" height="68" rx="14" fill="#ffffff" stroke="rgba(37,99,235,.18)" />
+        <text x="84" y="512">Authorized first → vetted local → best lead time</text>
+
+        <rect x="420" y="470" width="320" height="68" rx="14" fill="#ffffff" stroke="rgba(37,99,235,.18)" />
+        <text x="444" y="512">Evidence bundle: lot, packaging, warranty</text>
+
+        <rect x="770" y="470" width="370" height="68" rx="14" fill="#ffffff" stroke="rgba(37,99,235,.18)" />
+        <text x="794" y="512">Single consolidated quote with alternates</text>
       </g>
     </svg>
   )

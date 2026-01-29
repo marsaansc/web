@@ -1,5 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import data from '../data/products.json'
+import aiImg from '../assets/ai-edge-board.jpg'
+import fpgaImg from '../assets/fpga.jpg'
+import mcuImg from '../assets/microcontroller.jpg'
 
 function ChipIllustration(){
   // Lightweight inline SVG so we don't depend on external assets (keeps build stable).
@@ -126,6 +129,16 @@ export default function Home(){
   const count = data?.count || 0
   const categories = Array.from(new Set((data.products||[]).map(p=>p.category))).sort()
   const example = '3.3V LDO voltage regulator'
+
+
+function pickCatBg(category){
+  const c = String(category || '').toLowerCase()
+  if (c.includes('fpga')) return fpgaImg
+  if (c.includes('micro')) return mcuImg
+  if (c.includes('ai')) return aiImg
+  if (c.includes('edge')) return aiImg
+  return fpgaImg
+}
 
   function onSearch(e){
     e.preventDefault()
@@ -270,7 +283,7 @@ export default function Home(){
 
         <div className="home-cat-grid">
           {categories.map(c => (
-            <Link key={c} className="home-cat" to={`/catalog?category=${encodeURIComponent(c)}`}>
+            <Link key={c} className="home-cat" style={{"--catbg": `url(${pickCatBg(c)})`}} to={`/catalog?category=${encodeURIComponent(c)}`}>
               <span className="home-cat-pill">{c}</span>
               <span className="home-cat-arrow" aria-hidden="true">→</span>
             </Link>

@@ -104,16 +104,39 @@ a{color:inherit;text-decoration:none}
 
 .home-cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .home-cat{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  padding:12px 14px;
-  border-radius:16px;
+  padding:14px 14px;
+  border-radius:18px;
   border:1px solid var(--line);
-  background:rgba(255,255,255,.90);
-  box-shadow: 0 8px 20px rgba(2, 10, 30, .05);
+  background:#fff;
+  box-shadow: 0 10px 26px rgba(2, 10, 30, .06);
 }
+.home-cat:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image: var(--catbg);
+  background-size: cover;
+  background-position: center;
+  opacity:0.22;
+  filter:saturate(1.02) contrast(1.02);
+  z-index:0;
+}
+.home-cat:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(90deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
+  z-index:0;
+}
+.home-cat > *{ position:relative; z-index:1; }
+
 .home-cat:hover{border-color:rgba(37,99,235,.35)}
 .home-cat-pill{font-weight:600;color:#1f2a44}
 .home-cat-arrow{opacity:.65}
@@ -465,7 +488,7 @@ a{color:inherit;text-decoration:none}
 .hero-search-input::placeholder{ color:rgba(255,255,255,.75); }
 
 /* ===== Watermark image background (Catalog / Product) ===== */
-.watermark{ position:relative; }
+.watermark{ position:relative; isolation:isolate; }
 .watermark:before{
   content:"";
   position:absolute;
@@ -474,21 +497,22 @@ a{color:inherit;text-decoration:none}
   background-size: cover, cover, cover;
   background-position: center, right center, left center;
   background-repeat:no-repeat;
-  opacity:0.10;
-  filter: saturate(1.05) contrast(1.02);
+  opacity:0.12;
+  filter: saturate(1.02) contrast(1.02);
   pointer-events:none;
+  z-index:0;
 }
 .watermark:after{
   content:"";
   position:absolute;
   inset:0;
   background:
-    linear-gradient(180deg, rgba(247,251,255,.92), rgba(247,251,255,.70)),
+    linear-gradient(180deg, rgba(247,251,255,.88), rgba(247,251,255,.60)),
     radial-gradient(900px 380px at 70% 20%, rgba(37,99,235,.10), rgba(37,99,235,0));
   pointer-events:none;
+  z-index:0;
 }
-.watermark > *{ position:relative; }
-
+.watermark > *{ position:relative; z-index:1; }
 /* ===== Subtle animated arcs (CSS-only) ===== */
 .map-arc{
   fill:none;
