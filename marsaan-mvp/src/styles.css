@@ -22,6 +22,8 @@ body{
   color:var(--text);
 }
 a{color:inherit;text-decoration:none}
+.link{color:var(--accent)}
+.link:hover{text-decoration:underline}
 .container{max-width:1100px;margin:0 auto;padding:20px}
 .nav{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter: blur(10px);border-bottom:1px solid var(--line);z-index:10}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -209,6 +211,45 @@ a{color:inherit;text-decoration:none}
 .doc-section h2{margin:0 0 10px}
 .doc-grid{display:grid;grid-template-columns: repeat(3, 1fr);gap:12px}
 
+/* ---------- Product detail page (Arrow/DigiKey style) ---------- */
+.product-shell{max-width:1100px;margin:0 auto;padding:14px 20px 26px}
+.product-head{display:grid;grid-template-columns: 1.25fr .75fr;gap:14px;align-items:start}
+.product-title{margin:0;font-size:32px;letter-spacing:-.5px;line-height:1.12}
+.product-sub{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.product-blurb{margin:10px 0 0;color:var(--muted)}
+.product-media{background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:0 12px 28px rgba(2,10,30,.06)}
+.product-illus{width:100%;height:auto;display:block;border-radius:14px}
+
+.product-grid{display:grid;grid-template-columns: 1fr 360px;gap:14px;align-items:start;margin-top:14px}
+.product-main{min-width:0}
+.product-aside{position:sticky;top:92px;align-self:start}
+.product-buy{background:rgba(255,255,255,.9)}
+.buy-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.buy-price{font-size:30px;font-weight:900;letter-spacing:-.3px}
+.buy-meta{display:grid;grid-template-columns: repeat(3,1fr);gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.meta-item{display:flex;flex-direction:column;gap:2px;background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.12);padding:10px;border-radius:14px}
+.buy-actions{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+
+.product-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tab{border:1px solid var(--line);background:rgba(255,255,255,.86);padding:8px 10px;border-radius:12px;color:var(--muted);cursor:pointer;font-weight:700;font-size:13px}
+.tab:hover{background:rgba(37,99,235,.06);color:var(--text)}
+.tab.active{border-color:rgba(37,99,235,.35);color:#0b1324;background:rgba(37,99,235,.10)}
+
+.product-kv{display:grid;grid-template-columns: repeat(3, 1fr);gap:12px;margin-top:12px}
+.kv{border:1px solid var(--line);background:rgba(255,255,255,.85);padding:12px;border-radius:16px}
+
+.spec-table{margin-top:10px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.spec-row{display:grid;grid-template-columns: 180px 1fr;gap:12px;padding:10px 12px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.9)}
+.spec-row:nth-child(2n){background:rgba(37,99,235,.03)}
+.spec-row:last-child{border-bottom:0}
+.spec-k{color:var(--muted);font-size:13px}
+.spec-v{font-weight:700}
+
+.source-grid{display:grid;grid-template-columns: 1fr 1fr;gap:12px;margin-top:12px}
+.source-card{border:1px solid var(--line);background:rgba(255,255,255,.88);border-radius:16px;padding:12px}
+.list-tight{margin:10px 0 0;padding-left:18px}
+.list-tight li{margin:6px 0}
+
 @media (max-width: 900px){
   .hero h1{font-size:32px}
   .two-col{grid-template-columns: 1fr}
@@ -229,6 +270,14 @@ a{color:inherit;text-decoration:none}
   .doc-shell{grid-template-columns: 1fr}
   .doc-nav{position:relative;top:auto}
   .doc-grid{grid-template-columns: 1fr}
+
+  .product-head{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:1fr}
+  .product-aside{position:relative;top:auto}
+  .buy-meta{grid-template-columns:1fr}
+  .product-kv{grid-template-columns:1fr}
+  .spec-row{grid-template-columns:1fr}
+  .source-grid{grid-template-columns:1fr}
 }
 
 
