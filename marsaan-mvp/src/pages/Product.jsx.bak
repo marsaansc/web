@@ -1,4 +1,4 @@
-<img src="/images/fpga.jpg" alt="FPGA" />
+import fpgaImg from "../assets/FPGA.JPG";
 
 export default function Product() {
   return (

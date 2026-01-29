@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const categoryList = [
-  { name: "AI Edge Board", img: "/images/ai.jpg" },
-  { name: "FPGA Board", img: "/images/fpga.jpg" },
-  { name: "Microcontroller", img: "/images/mcu.jpg" },
+  { name: "AI Edge Board", img: aiImg },
+  { name: "FPGA Board", img: fpgaImg },
+  { name: "Microcontroller", img: mcuImg },
   { name: "Memory" },
   { name: "Connectivity" },
 ];

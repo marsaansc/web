@@ -666,7 +666,7 @@ a:hover, .link:hover{ text-decoration: underline; }
 
 .subtle-bg {
   background: linear-gradient(rgba(255,255,255,0.94), rgba(255,255,255,0.97)),
-    url("/images/fpga.jpg") center/cover no-repeat;
+    url("../assets/FPGA.JPG") center/cover no-repeat;
 }
 
 .product-layout { display:grid; grid-template-columns:2fr 1fr; gap:40px; }
