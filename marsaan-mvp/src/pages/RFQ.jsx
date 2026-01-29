@@ -57,9 +57,6 @@ export default function RFQ(){
       bomFile: bomFile ? { name: bomFile.name, size: bomFile.size, type: bomFile.type } : null
     }
 
-    // Production behavior: send RFQ + BOM to Vercel serverless function (/api/rfq)
-    // If the server responds with an error, show the message and allow manual JSON download.
-    // Only auto-download if the network call itself fails.
     try{
       setSubmitting(true)
       const fd = new FormData()
@@ -72,24 +69,19 @@ export default function RFQ(){
       if(!r.ok || !j?.ok){
         const msg = j?.error || `Submission failed (${r.status})`
         setLastPayload(payload)
-        setStatus({ type:'warn', msg: msg })
+        setStatus({ type:'warn', msg })
         return
       }
 
       setStatus({ type:'ok', msg:'RFQ submitted. You will receive an email at rfq@marsaan.com shortly.' })
-      // clear cart after submit (optional)
-      // localStorage.removeItem('marsaan_quote_cart')
-      // setCart([])
       return
     }catch(err){
-      // Network or unexpected runtime error: keep the RFQ locally and allow manual download.
       setLastPayload(payload)
       setStatus({ type:'warn', msg:`RFQ endpoint request failed: ${err?.message || 'Unknown error'}. You can download the RFQ JSON and email it manually.` })
     }finally{
       setSubmitting(false)
     }
   }
-
 
   function onRemove(sku){
     setCart(removeFromCart(sku))
@@ -100,61 +92,134 @@ export default function RFQ(){
 
   return (
     <div>
-      <div className="section-title">
-        <h2>Request Quote / BOM Upload</h2>
-        <span>RFQ-first B2B MVP</span>
+      <div className="page-head">
+        <div>
+          <div className="small">RFQ / BOM Upload</div>
+          <h1 style={{margin:'6px 0 0'}}>Get a quote with lead-time options</h1>
+          <div className="small" style={{marginTop:10, maxWidth:860}}>
+            Upload your BOM or pick items from the catalog. We respond with pricing + lead times + traceability notes
+            (authorized distributors vs vetted local stock) in one consolidated quote.
+          </div>
+        </div>
+        <div className="page-head-actions">
+          <Link className="btn" to="/catalog">Browse Catalog</Link>
+          <a className="btn" href="/api/health" target="_blank" rel="noreferrer">API Health</a>
+        </div>
       </div>
 
-      <div className="two-col">
-        <QuoteCart items={cart} onRemove={onRemove} onQty={onQty} />
-
-        <form className="card" onSubmit={onSubmit}>
-          <h3>Lead capture</h3>
-          <p>Fill these details and submit. This form is connected to a Vercel backend endpoint that emails your RFQ to rfq@marsaan.com. If the endpoint fails, you can download the RFQ JSON and email it manually.</p>
-
-          <div className="toolbar">
-            <input className="input" placeholder="Company / Lab / Institute" value={form.company}
-                   onChange={(e)=>setForm({...form, company:e.target.value})} required />
-            <select value={form.customerType} onChange={(e)=>setForm({...form, customerType:e.target.value})}>
-              <option>Startup</option>
-              <option>OEM</option>
-              <option>University</option>
-              <option>Reseller</option>
-              <option>Individual</option>
-            </select>
-          </div>
-
-          <div className="toolbar">
-            <input className="input" placeholder="Your name" value={form.name}
-                   onChange={(e)=>setForm({...form, name:e.target.value})} required />
-            <input className="input" type="email" placeholder="Work email" value={form.email}
-                   onChange={(e)=>setForm({...form, email:e.target.value})} required />
-          </div>
-
-          <div className="toolbar">
-            <input className="input" placeholder="Phone / WhatsApp" value={form.phone}
-                   onChange={(e)=>setForm({...form, phone:e.target.value})} />
-            <input className="input" placeholder="Country" value={form.country}
-                   onChange={(e)=>setForm({...form, country:e.target.value})} />
-            <input className="input" type="date" value={form.neededBy}
-                   onChange={(e)=>setForm({...form, neededBy:e.target.value})} />
-          </div>
-
-          <div style={{marginTop:10}}>
-            <label className="small"><b>BOM Upload</b> (CSV/XLSX/PDF)</label><br/>
-            <input className="input" type="file" onChange={(e)=>setBomFile(e.target.files?.[0] || null)} />
-            <div className="small" style={{marginTop:6}}>
-              Tip: For production, store BOM files securely (S3/Drive) and link them to the RFQ record.
+      <div className="rfq-shell">
+        <div className="rfq-left">
+          <div className="card card-soft">
+            <div className="rfq-steps">
+              <div className="step"><span className="dot"/>Add parts / BOM</div>
+              <div className="step"><span className="dot"/>Share constraints</div>
+              <div className="step"><span className="dot"/>Receive quote</div>
+            </div>
+            <div className="small" style={{marginTop:10}}>
+              Expected response: <b>same day / next business day</b> for most BOMs.
             </div>
           </div>
 
-          <div style={{marginTop:10}}>
-            <textarea rows="4" style={{width:'100%'}} className="input" placeholder="Notes (quantities, alternates allowed, shipping pincode, etc.)"
+          <QuoteCart items={cart} onRemove={onRemove} onQty={onQty} />
+        </div>
+
+        <form className="card rfq-form" onSubmit={onSubmit}>
+          <div className="form-head">
+            <div>
+              <h2 style={{margin:'0 0 6px'}}>Buyer details</h2>
+              <div className="small">This helps us choose the right supply path and share compliant paperwork.</div>
+            </div>
+            <span className="pill pill-accent">Secure RFQ submission</span>
+          </div>
+
+          <div className="form-grid">
+            <div>
+              <label className="label">Company / Lab / Institute</label>
+              <input className="input" placeholder="e.g., Marsaan Labs Pvt Ltd" value={form.company}
+                     onChange={(e)=>setForm({...form, company:e.target.value})} required />
+            </div>
+            <div>
+              <label className="label">Customer type</label>
+              <select value={form.customerType} onChange={(e)=>setForm({...form, customerType:e.target.value})}>
+                <option>Startup</option>
+                <option>OEM</option>
+                <option>University</option>
+                <option>Reseller</option>
+                <option>Individual</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="label">Your name</label>
+              <input className="input" placeholder="Full name" value={form.name}
+                     onChange={(e)=>setForm({...form, name:e.target.value})} required />
+            </div>
+            <div>
+              <label className="label">Work email</label>
+              <input className="input" type="email" placeholder="name@company.com" value={form.email}
+                     onChange={(e)=>setForm({...form, email:e.target.value})} required />
+            </div>
+
+            <div>
+              <label className="label">Phone / WhatsApp</label>
+              <input className="input" placeholder="+91 …" value={form.phone}
+                     onChange={(e)=>setForm({...form, phone:e.target.value})} />
+            </div>
+            <div>
+              <label className="label">Country</label>
+              <input className="input" placeholder="India" value={form.country}
+                     onChange={(e)=>setForm({...form, country:e.target.value})} />
+            </div>
+          </div>
+
+          <div className="divider" />
+
+          <div className="form-head" style={{marginTop:0}}>
+            <div>
+              <h2 style={{margin:'0 0 6px'}}>BOM upload</h2>
+              <div className="small">CSV/XLSX/PDF supported. Add “needed-by date” and alternates preference.</div>
+            </div>
+            <div className="small">{hasLines ? `${cart.length} line(s) in basket` : 'No basket lines yet'}</div>
+          </div>
+
+          <div className="upload-card">
+            <div>
+              <div style={{fontWeight:700}}>Drop your BOM here</div>
+              <div className="small" style={{marginTop:6}}>or click to choose a file</div>
+            </div>
+            <input
+              className="upload-input"
+              type="file"
+              onChange={(e)=>setBomFile(e.target.files?.[0] || null)}
+            />
+          </div>
+          {bomFile ? (
+            <div className="small" style={{marginTop:8}}>
+              Selected: <b>{bomFile.name}</b> ({Math.round(bomFile.size/1024)} KB)
+            </div>
+          ) : null}
+
+          <div className="form-grid" style={{marginTop:12}}>
+            <div>
+              <label className="label">Needed-by date (optional)</label>
+              <input className="input" type="date" value={form.neededBy}
+                     onChange={(e)=>setForm({...form, neededBy:e.target.value})} />
+            </div>
+            <div>
+              <label className="label">Shipping pincode / city (optional)</label>
+              <input className="input" placeholder="e.g., 5600XX / Bangalore" value={form.shipping || ''}
+                     onChange={(e)=>setForm({...form, shipping:e.target.value})} />
+            </div>
+          </div>
+
+          <div style={{marginTop:12}}>
+            <label className="label">Notes</label>
+            <textarea rows="4" style={{width:'100%'}} className="input" placeholder="Quantities, alternates allowed, target brand, certifications needed, etc."
                       value={form.notes} onChange={(e)=>setForm({...form, notes:e.target.value})} />
           </div>
 
           {status && (
-            <div className={status.type === 'ok' ? 'notice success' : 'notice warning'} style={{marginTop:10}}>
+            <div className={status.type === 'ok' ? 'notice success' : 'notice warning'} style={{marginTop:12}}>
               <div style={{display:'flex',gap:10,alignItems:'center',flexWrap:'wrap'}}>
                 <span>{status.msg}</span>
                 {lastPayload && (
@@ -172,14 +237,27 @@ export default function RFQ(){
               </div>
             </div>
           )}
-          <div style={{display:'flex',gap:10,flexWrap:'wrap',marginTop:12}}>
-            <button className="btn primary" type="submit" disabled={submitting || (!hasLines && !bomFile)}>Submit RFQ</button>
-            <Link className="btn" to="/catalog">Add products</Link>
-            <Link className="btn" to="/quality">See Quality policy</Link>
+
+          <div className="form-actions">
+            <button className="btn primary" type="submit" disabled={submitting || (!hasLines && !bomFile)}>
+              {submitting ? 'Submitting…' : 'Submit RFQ'}
+            </button>
+            <Link className="btn" to="/catalog">Add parts</Link>
+            <Link className="btn" to="/quality">Quality policy</Link>
+          </div>
+
+          <div className="callout" style={{marginTop:12}}>
+            <div style={{fontWeight:700, marginBottom:6}}>What you’ll receive</div>
+            <ul style={{margin:'0 0 0 18px', padding:0}}>
+              <li>Pricing per line + MOQ notes</li>
+              <li>Lead times (authorized vs local stock)</li>
+              <li>Traceability / warranty / DOA terms</li>
+              <li>Alternate part suggestions</li>
+            </ul>
           </div>
 
           <div className="small" style={{marginTop:10}}>
-            Production integration: Vercel serverless function → email to rfq@marsaan.com + optional webhook to Zoho/Odoo CRM.
+            Production integration: Vercel serverless function → email to rfq@marsaan.com + optional webhook to CRM/ERP.
           </div>
         </form>
       </div>
