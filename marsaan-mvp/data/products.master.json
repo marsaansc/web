@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T08:17:45.025Z",
+  "generatedAt": "2026-01-24T07:27:33.948577Z",
   "count": 20,
   "products": [
     {
@@ -13,13 +13,15 @@
       "keySpecs": "Artix-7, ~33k LUT, DDR3, USB-JTAG",
       "useCase": "FPGA prototyping, DSP, AI accel",
       "targetCustomers": "Students, Startups",
-      "plannedSellPriceINR": 8500,
+      "plannedBuyPriceINR": 6500.0,
+      "plannedSellPriceINR": 8500.0,
+      "plannedGrossMarginPct": 0.23529411764705882,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/Arty-A7-Artix-7-Development-Hobbyists/dp/B07D1DVRG6",
-          "priceINR": 3371
+          "priceINR": 3371.0
         },
         "alibaba": {
           "url": "https://www.alibaba.com/showroom/xilinx-fpga-kit.html",
@@ -39,6 +41,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 30.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Rynex/Import"
+      },
       "tier1": {
         "distributors": [
           "Avnet",
@@ -71,9 +78,11 @@
       "keySpecs": "Dual ARM A9 + FPGA fabric, DDR3",
       "useCase": "Embedded + HW accel",
       "targetCustomers": "Startups, Labs",
-      "plannedSellPriceINR": 15500,
+      "plannedBuyPriceINR": 12500.0,
+      "plannedSellPriceINR": 15500.0,
+      "plannedGrossMarginPct": 0.1935483870967742,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/Digilent-Zybo-Z7-Zynq-7000-Development/dp/B0797G4485",
@@ -97,6 +106,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 28.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Rynex/Import"
+      },
       "tier1": {
         "distributors": [
           "Avnet",
@@ -129,13 +143,15 @@
       "keySpecs": "Low cost FPGA, basic IO",
       "useCase": "Education, legacy designs",
       "targetCustomers": "Students, Colleges",
-      "plannedSellPriceINR": 5800,
+      "plannedBuyPriceINR": 4200.0,
+      "plannedSellPriceINR": 5800.0,
+      "plannedGrossMarginPct": 0.27586206896551724,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/Numato-Lab-Spartan-Development-Board/dp/B00JA2FAVS",
-          "priceINR": 4097
+          "priceINR": 4097.0
         },
         "alibaba": {
           "url": "https://www.alibaba.com/showroom/spartan-fpga-development-board.html",
@@ -155,6 +171,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 31.2,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Avnet",
@@ -187,9 +208,11 @@
       "keySpecs": "Low-power FPGA, DSP blocks",
       "useCase": "Ultra-low power edge, learning",
       "targetCustomers": "Makers, Startups",
-      "plannedSellPriceINR": 3500,
+      "plannedBuyPriceINR": 2200.0,
+      "plannedSellPriceINR": 3500.0,
+      "plannedGrossMarginPct": 0.37142857142857144,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/s?k=iCE40+UltraPlus+Dev+Board+iCE40UP5K",
@@ -213,6 +236,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 35.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Import"
+      },
       "tier1": {
         "distributors": [
           "Arrow",
@@ -245,9 +273,11 @@
       "keySpecs": "ECP5 FPGA, SerDes, DDR3 optional",
       "useCase": "Edge video, custom accel",
       "targetCustomers": "Startups, Labs",
-      "plannedSellPriceINR": 8000,
+      "plannedBuyPriceINR": 5800.0,
+      "plannedSellPriceINR": 8000.0,
+      "plannedGrossMarginPct": 0.275,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/Lattice-ECP5-FPGA-RISC-V-Development/dp/B0BKF9NDGZ",
@@ -271,6 +301,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 29.0,
+      "supplierPlan": {
+        "sourcingMode": "Import",
+        "primarySupplierPlanned": "Import"
+      },
       "tier1": {
         "distributors": [
           "Arrow",
@@ -303,13 +338,15 @@
       "keySpecs": "Low-power FPGA + ADC",
       "useCase": "Industrial control",
       "targetCustomers": "Colleges, Industry",
-      "plannedSellPriceINR": 8800,
+      "plannedBuyPriceINR": 6500.0,
+      "plannedSellPriceINR": 8800.0,
+      "plannedGrossMarginPct": 0.26136363636363635,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/Altera-MAX10-FPGA-Development-Board/dp/B07B4WPKGS",
-          "priceINR": 16098
+          "priceINR": 16098.0
         },
         "alibaba": {
           "url": "https://www.alibaba.com/product-detail/DK-DEV-10M50F484-B-MAX-10_1601294733718.html",
@@ -329,6 +366,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 31.2,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Import"
+      },
       "tier1": {
         "distributors": [
           "Arrow",
@@ -361,13 +403,15 @@
       "keySpecs": "128-core GPU, ARM CPU",
       "useCase": "Edge inference, vision",
       "targetCustomers": "AI startups, Students",
-      "plannedSellPriceINR": 33850,
+      "plannedBuyPriceINR": 21999.0,
+      "plannedSellPriceINR": 33850.0,
+      "plannedGrossMarginPct": 0.3501,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "https://www.amazon.in/NVIDIA-Jetson-Nano-Developer-Kit/dp/B0D3MFRG2R",
-          "priceINR": 37499
+          "priceINR": 37499.0
         },
         "alibaba": {
           "url": "https://www.alibaba.com/showroom/jetson-nano.html",
@@ -387,6 +431,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 33.4,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "Local/Import"
+      },
       "tier1": {
         "distributors": [
           "Arrow",
@@ -419,9 +468,11 @@
       "keySpecs": "6-axis IMU",
       "useCase": "Robotics",
       "targetCustomers": "Students, robotics",
-      "plannedSellPriceINR": 260,
+      "plannedBuyPriceINR": 165.0,
+      "plannedSellPriceINR": 260.0,
+      "plannedGrossMarginPct": 0.3654,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -445,6 +496,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 39.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Digi-Key",
@@ -453,7 +509,7 @@
           "RS India",
           "element14 India"
         ],
-        "notes": "Authorized distributor (TDK/InvenSense); Authorized distributor; Reputable distributor (check authorization by part); Reputable distributor; Reputable distributor | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Authorized distributor (TDK/InvenSense); Authorized distributor; Reputable distributor (check authorization by part); Reputable distributor; Reputable distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -477,9 +533,11 @@
       "keySpecs": "Distance sensor",
       "useCase": "Robotics",
       "targetCustomers": "Students",
-      "plannedSellPriceINR": 100,
+      "plannedBuyPriceINR": 59.0,
+      "plannedSellPriceINR": 100.0,
+      "plannedGrossMarginPct": 0.41,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -503,6 +561,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 33.5,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "element14 India",
@@ -511,7 +574,7 @@
           "Digi-Key",
           "Seeed Studio / SparkFun / Adafruit"
         ],
-        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -535,9 +598,11 @@
       "keySpecs": "WiFi/BT MCU",
       "useCase": "IoT edge",
       "targetCustomers": "Students, startups",
-      "plannedSellPriceINR": 530,
+      "plannedBuyPriceINR": 339.0,
+      "plannedSellPriceINR": 530.0,
+      "plannedGrossMarginPct": 0.3604,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -561,6 +626,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 39.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Mouser",
@@ -593,9 +663,11 @@
       "keySpecs": "Cortex-M4",
       "useCase": "Control, DSP",
       "targetCustomers": "Students, startups",
-      "plannedSellPriceINR": 440,
+      "plannedBuyPriceINR": 284.0,
+      "plannedSellPriceINR": 440.0,
+      "plannedGrossMarginPct": 0.3545,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -619,6 +691,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 33.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "element14 India",
@@ -651,9 +728,11 @@
       "keySpecs": "USB to UART",
       "useCase": "Debug/program",
       "targetCustomers": "All devs",
-      "plannedSellPriceINR": 170,
+      "plannedBuyPriceINR": 107.0,
+      "plannedSellPriceINR": 170.0,
+      "plannedGrossMarginPct": 0.3706,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -677,6 +756,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 39.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Arrow",
@@ -685,7 +769,7 @@
           "element14 India",
           "RS India"
         ],
-        "notes": "Authorized Silicon Labs distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized/Franchised electronics distributor | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Authorized Silicon Labs distributor; Authorized distributor; Authorized distributor; Authorized distributor; Authorized/Franchised electronics distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -709,9 +793,11 @@
       "keySpecs": "128Mbit QSPI",
       "useCase": "FPGA config",
       "targetCustomers": "FPGA board builders",
-      "plannedSellPriceINR": 250,
+      "plannedBuyPriceINR": 161.0,
+      "plannedSellPriceINR": 250.0,
+      "plannedGrossMarginPct": 0.356,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -735,6 +821,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 55.4,
+      "supplierPlan": {
+        "sourcingMode": "Both",
+        "primarySupplierPlanned": "LCSC/Local"
+      },
       "tier1": {
         "distributors": [
           "Arrow",
@@ -767,9 +858,11 @@
       "keySpecs": "Storage",
       "useCase": "Dev kits",
       "targetCustomers": "All",
-      "plannedSellPriceINR": 1110,
+      "plannedBuyPriceINR": 719.0,
+      "plannedSellPriceINR": 1110.0,
+      "plannedGrossMarginPct": 0.3523,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -793,6 +886,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 33.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Digi-Key",
@@ -801,7 +899,7 @@
           "element14 India",
           "Authorized SanDisk/WD channel partner"
         ],
-        "notes": "Reputable distributor (industrial-grade cards); Reputable distributor (industrial-grade cards); Reputable distributor; Reputable distributor; Use official channel/reseller list where possible | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Reputable distributor (industrial-grade cards); Reputable distributor (industrial-grade cards); Reputable distributor; Reputable distributor; Use official channel/reseller list where possible | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -825,9 +923,11 @@
       "keySpecs": "DC-DC buck module",
       "useCase": "Power rails",
       "targetCustomers": "All boards",
-      "plannedSellPriceINR": 40,
+      "plannedBuyPriceINR": 18.0,
+      "plannedSellPriceINR": 40.0,
+      "plannedGrossMarginPct": 0.55,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -851,6 +951,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 51.2,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Millennium Semiconductors India",
@@ -859,7 +964,7 @@
           "Mouser",
           "Arrow"
         ],
-        "notes": "Authorized MPS distributor (India); Authorized distributor; Authorized distributor (region-dependent); Authorized distributor; Authorized/Franchised distributor | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Authorized MPS distributor (India); Authorized distributor; Authorized distributor (region-dependent); Authorized distributor; Authorized/Franchised distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -883,9 +988,11 @@
       "keySpecs": "Linear regulator",
       "useCase": "Low power rails",
       "targetCustomers": "All",
-      "plannedSellPriceINR": 20,
+      "plannedBuyPriceINR": 13.0,
+      "plannedSellPriceINR": 20.0,
+      "plannedGrossMarginPct": 0.35,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -909,6 +1016,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 46.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Digi-Key",
@@ -941,9 +1053,11 @@
       "keySpecs": "Common buck module",
       "useCase": "Prototyping",
       "targetCustomers": "Students",
-      "plannedSellPriceINR": 60,
+      "plannedBuyPriceINR": 39.0,
+      "plannedSellPriceINR": 60.0,
+      "plannedGrossMarginPct": 0.35,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -967,6 +1081,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 28.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "Digi-Key",
@@ -975,7 +1094,7 @@
           "RS India",
           "element14 India"
         ],
-        "notes": "Authorized TI distributor (for genuine TI parts); Authorized TI distributor; Authorized TI distributor; Authorized/Franchised distributor; Authorized/Franchised distributor | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Authorized TI distributor (for genuine TI parts); Authorized TI distributor; Authorized TI distributor; Authorized/Franchised distributor; Authorized/Franchised distributor | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -999,9 +1118,11 @@
       "keySpecs": "Logic capture",
       "useCase": "Debug",
       "targetCustomers": "Labs",
-      "plannedSellPriceINR": 550,
+      "plannedBuyPriceINR": 355.0,
+      "plannedSellPriceINR": 550.0,
+      "plannedGrossMarginPct": 0.3545,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -1025,6 +1146,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 29.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "element14 India",
@@ -1033,7 +1159,7 @@
           "Digi-Key",
           "Seeed Studio / SparkFun / Adafruit"
         ],
-        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -1057,9 +1183,11 @@
       "keySpecs": "Prototyping",
       "useCase": "Prototyping",
       "targetCustomers": "Students",
-      "plannedSellPriceINR": 90,
+      "plannedBuyPriceINR": 54.0,
+      "plannedSellPriceINR": 90.0,
+      "plannedGrossMarginPct": 0.4,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -1083,6 +1211,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 37.5,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "element14 India",
@@ -1091,7 +1224,7 @@
           "Digi-Key",
           "Seeed Studio / SparkFun / Adafruit"
         ],
-        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
@@ -1115,9 +1248,11 @@
       "keySpecs": "Prototyping",
       "useCase": "Prototyping",
       "targetCustomers": "Students",
-      "plannedSellPriceINR": 180,
+      "plannedBuyPriceINR": 115.83,
+      "plannedSellPriceINR": 180.0,
+      "plannedGrossMarginPct": 0.3565,
       "moq": "",
-      "leadTimeDays": 150,
+      "leadTimeDays": 150.0,
       "links": {
         "amazonIN": {
           "url": "",
@@ -1141,6 +1276,11 @@
         }
       },
       "priorityLabel": "High",
+      "priorityScore": 45.4,
+      "supplierPlan": {
+        "sourcingMode": "Local",
+        "primarySupplierPlanned": "Local"
+      },
       "tier1": {
         "distributors": [
           "element14 India",
@@ -1149,7 +1289,7 @@
           "Digi-Key",
           "Seeed Studio / SparkFun / Adafruit"
         ],
-        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory—OEM authorization may not apply; prefer reputable retailers + sample QC."
+        "notes": "Reputable distributor/retailer (best for quality); Reputable distributor/retailer; Reputable distributor/retailer; Reputable distributor/retailer; Reputable maker retailers (for dev/DIY items) | Note: module/accessory\u2014OEM authorization may not apply; prefer reputable retailers + sample QC."
       },
       "tier2": {
         "stockists": [
