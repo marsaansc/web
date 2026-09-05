@@ -1,5 +1,6 @@
 import Busboy from 'busboy';
 import nodemailer from 'nodemailer';
+import { persistRfq } from './_lib/rfqRepository.js';
 
 function formatResendError(status, body) {
   const safeBody = body ? String(body).slice(0, 400) : '';
@@ -199,6 +200,23 @@ export default async function handler(req, res) {
     return badRequest(res, 'Missing RFQ payload.');
   }
 
+  // Persist to the database BEFORE emailing. This is the important
+  // ordering: if email delivery fails downstream, the RFQ still exists
+  // and isn't lost. If Supabase isn't configured yet (persisted: false,
+  // reason: 'not_configured'), we fall through to the existing
+  // email-only behavior unchanged — this never blocks a submission.
+  let persistence;
+  try {
+    persistence = await persistRfq(payload, parsed.bom);
+  } catch (e) {
+    // A real DB error (bad credentials, missing table, etc.) — log it
+    // loudly but do NOT fail the request. Losing an RFQ because the
+    // database briefly had an issue would be worse than the leak-prone
+    // email-only flow we're replacing.
+    console.error('[api/rfq] persistRfq failed:', e.message);
+    persistence = { persisted: false, reason: 'error', error: e.message };
+  }
+
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
   const MAIL_TO = process.env.MAIL_TO || SMTP_USER || '';
   const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || '';
@@ -247,7 +265,8 @@ export default async function handler(req, res) {
   }
 
   const rfqJson = Buffer.from(JSON.stringify(payload, null, 2), 'utf-8');
-  const subject = `Marsaan RFQ — ${payload?.form?.company || payload?.form?.name || 'New lead'} — ${new Date().toLocaleString()}`;
+  const rfqNumberPrefix = persistence.persisted ? `[${persistence.rfqNumber}] ` : '';
+  const subject = `${rfqNumberPrefix}Marsaan RFQ — ${payload?.form?.company || payload?.form?.name || 'New lead'} — ${new Date().toLocaleString()}`;
 
   const attachments = [
     {
@@ -298,5 +317,11 @@ export default async function handler(req, res) {
     webhook = { sent: false, error: 'webhook_failed' };
   }
 
-  ok(res, { message: 'RFQ received and emailed successfully.', mail: sendMeta, webhook });
+  ok(res, {
+    message: 'RFQ received and emailed successfully.',
+    mail: sendMeta,
+    webhook,
+    rfqNumber: persistence.persisted ? persistence.rfqNumber : null,
+    persisted: persistence.persisted,
+  });
 }

@@ -15,7 +15,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.2",
     "nodemailer": "^6.9.15",
-    "busboy": "^1.6.0"
+    "busboy": "^1.6.0",
+    "@supabase/supabase-js": "^2.45.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",

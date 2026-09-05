@@ -73,7 +73,8 @@ export default function RFQ(){
         return
       }
 
-      setStatus({ type:'ok', msg:'RFQ submitted. You will receive an email at rfq@marsaan.com shortly.' })
+      const refMsg = j?.rfqNumber ? ` Your reference number is ${j.rfqNumber}.` : ''
+      setStatus({ type:'ok', msg:`RFQ submitted.${refMsg} You will receive an email at rfq@marsaan.com shortly.` })
       return
     }catch(err){
       setLastPayload(payload)
