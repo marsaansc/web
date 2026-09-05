@@ -64,7 +64,6 @@ export default function Product(){
   const tier2 = p.tier2?.stockists || []
 
   const plannedSell = Number.isFinite(p.plannedSellPriceINR) ? Math.round(p.plannedSellPriceINR) : null
-  const plannedBuy = Number.isFinite(p.plannedBuyPriceINR) ? Math.round(p.plannedBuyPriceINR) : null
   const leadDays = Number.isFinite(p.leadTimeDays) ? Math.round(p.leadTimeDays) : null
 
   const extSources = useMemo(() => {
@@ -225,7 +224,7 @@ export default function Product(){
               </div>
 
               <div className="callout" style={{marginTop:14}}>
-                <b>Supplier plan:</b> {p.supplierPlan?.sourcingMode || '—'} • Primary: {p.supplierPlan?.primarySupplierPlanned || '—'}
+                <b>Sourcing:</b> Contact us for sourcing &amp; availability details
               </div>
             </div>
           ) : null}
@@ -292,9 +291,6 @@ export default function Product(){
             <div className="buy-row">
               <div className="small">Indicative sell</div>
               <div className="buy-price">{plannedSell ? `₹${plannedSell}` : 'Quote'}</div>
-            </div>
-            <div className="small" style={{marginTop:6, color:'var(--muted)'}}>
-              Buy plan: {plannedBuy ? `₹${plannedBuy}` : '—'} • Margin: {Number.isFinite(p.plannedGrossMarginPct) ? `${Math.round(p.plannedGrossMarginPct*100)}%` : '—'}
             </div>
 
             <div className="buy-meta">
