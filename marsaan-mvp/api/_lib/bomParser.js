@@ -116,6 +116,7 @@ export async function parseBomFile(buffer, filename) {
   const message = await anthropic.messages.create({
     model: EXTRACTION_MODEL,
     max_tokens: 4096,
+    temperature: 0,
     messages: [{ role: 'user', content: buildExtractionPrompt(rawRows) }],
   });
 

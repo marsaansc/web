@@ -62,6 +62,7 @@ export async function finalizeLeadReply(replyText) {
   const message = await anthropic.messages.create({
     model: FINALIZATION_MODEL,
     max_tokens: 2048,
+    temperature: 0,
     messages: [{ role: 'user', content: buildFinalizationPrompt(replyText) }],
   });
 

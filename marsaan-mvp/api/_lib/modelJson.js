@@ -31,7 +31,24 @@ export function extractTextFromMessage(message) {
  */
 export function parseJsonArrayFromModelText(text) {
   const cleaned = text.replace(/```json|```/g, '').trim();
-  const parsed = JSON.parse(cleaned);
+
+  // Models sometimes explain themselves in prose even when told to
+  // respond with ONLY JSON — especially for empty results ("Based on my
+  // search, I found no genuine demand signals..."). Rather than assume
+  // the whole response is JSON, find the actual array substring within
+  // it and parse just that, so explanatory text around it doesn't break
+  // extraction. This is the more common failure mode in practice than
+  // code fences, so it's worth handling explicitly rather than just
+  // throwing and losing the result.
+  const firstBracket = cleaned.indexOf('[');
+  const lastBracket = cleaned.lastIndexOf(']');
+
+  if (firstBracket === -1 || lastBracket === -1 || lastBracket < firstBracket) {
+    throw new Error('Model did not return a JSON array.');
+  }
+
+  const arraySubstring = cleaned.slice(firstBracket, lastBracket + 1);
+  const parsed = JSON.parse(arraySubstring);
   if (!Array.isArray(parsed)) {
     throw new Error('Model did not return a JSON array.');
   }

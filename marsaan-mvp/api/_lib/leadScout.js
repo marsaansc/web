@@ -51,7 +51,8 @@ For each genuine demand signal you find, note:
 
 Be conservative — only include results that look like a real person actively wanting to buy this part soon, not old archived posts, general discussions about the technology, or spec/comparison pages. It's fine to return an empty list if nothing genuine turns up.
 
-After searching, respond with ONLY a JSON array, no other text, no markdown code fences. Example shape:
+After searching, respond with ONLY a JSON array, no other text, no markdown code fences, no explanation before or after — even if you found nothing. If nothing genuine turned up, respond with exactly: []
+Example shape:
 [{"sourceUrl":"https://...","platform":"IndiaMART","snippet":"...","qtyMentioned":50}]`;
 }
 
@@ -71,6 +72,7 @@ export async function scanForLeads(product) {
   const message = await anthropic.messages.create({
     model: SCOUT_MODEL,
     max_tokens: 4096,
+    temperature: 0, // favor consistent, strict format-following over creative variation for this extraction task
     tools: [{ type: 'web_search_20250305', name: 'web_search' }],
     messages: [{ role: 'user', content: buildScoutPrompt(product) }],
   });
