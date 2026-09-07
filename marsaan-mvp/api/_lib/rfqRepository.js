@@ -101,3 +101,95 @@ export async function persistRfq(payload, bom) {
 
   return { persisted: true, rfqId: rfqRow.id, rfqNumber: rfqRow.rfq_number };
 }
+
+/**
+ * Inserts BOM-parsed line items for an existing RFQ. Kept separate from
+ * persistRfq() because this runs as a second, best-effort step — the RFQ
+ * itself is already safely saved by the time this is called (see api/rfq.js
+ * for the timeout/error handling around this).
+ *
+ * @param {string} rfqId
+ * @param {Array<{partNumber, manufacturer, description, qty}>} items
+ */
+export async function insertBomLineItems(rfqId, items) {
+  if (!isPersistenceConfigured() || !items?.length) return { inserted: 0 };
+
+  const supabase = getSupabaseClient();
+
+  const rows = items.map((item) => ({
+    rfq_id: rfqId,
+    sku: null, // no internal SKU yet — these are customer-supplied part numbers, not yet matched against our catalog
+    product_name: item.description || null,
+    model_part_number: item.partNumber || null,
+    qty: Number.isFinite(Number(item.qty)) ? Number(item.qty) : 1,
+    source: 'bom_upload',
+    raw_extracted: item,
+  }));
+
+  const { error } = await supabase.from('rfq_line_items').insert(rows);
+
+  if (error) {
+    throw new Error(`Failed to insert BOM line items: ${error.message}`);
+  }
+
+  return { inserted: rows.length };
+}
+
+/**
+ * Creates a new RFQ from a finalized lead reply — Agent 3 (RFQ Finalization).
+ * Reuses the exact same rfqs/rfq_line_items tables as every other RFQ, with
+ * lead_id set so it's traceable back to the original discovered lead.
+ *
+ * @param {string} leadId
+ * @param {object} extracted - { company, contactName, email, phone, items }
+ * @param {string} replyText - the raw pasted reply, kept for reference
+ */
+export async function createRfqFromLead(leadId, extracted, replyText) {
+  if (!isPersistenceConfigured()) {
+    throw new Error('Supabase is not configured — cannot create an RFQ from a lead.');
+  }
+
+  const supabase = getSupabaseClient();
+
+  const { data: rfqRow, error: rfqError } = await supabase
+    .from('rfqs')
+    .insert({
+      status: 'received',
+      lead_id: leadId,
+      company: extracted.company || null,
+      contact_name: extracted.contactName || null,
+      email: extracted.email || null,
+      phone: extracted.phone || null,
+      notes: replyText,
+      raw_payload: { source: 'lead_reply', leadId, replyText, extracted },
+    })
+    .select('id, rfq_number')
+    .single();
+
+  if (rfqError) {
+    throw new Error(`Failed to create RFQ from lead: ${rfqError.message}`);
+  }
+
+  const items = Array.isArray(extracted.items) ? extracted.items : [];
+  if (items.length > 0) {
+    const lineRows = items.map((item) => ({
+      rfq_id: rfqRow.id,
+      sku: null,
+      product_name: item.description || null,
+      model_part_number: item.partNumber || null,
+      qty: Number.isFinite(Number(item.qty)) ? Number(item.qty) : 1,
+      source: 'lead_reply',
+      raw_extracted: item,
+    }));
+
+    const { error: linesError } = await supabase.from('rfq_line_items').insert(lineRows);
+    if (linesError) {
+      // Same principle as persistRfq(): the RFQ header already exists,
+      // which is the more important half — surface loudly, don't throw
+      // and lose that.
+      console.error('[rfqRepository] Lead-reply line item insert failed:', linesError.message);
+    }
+  }
+
+  return { rfqId: rfqRow.id, rfqNumber: rfqRow.rfq_number, itemCount: items.length };
+}

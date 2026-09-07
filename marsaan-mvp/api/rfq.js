@@ -1,6 +1,7 @@
 import Busboy from 'busboy';
 import nodemailer from 'nodemailer';
-import { persistRfq } from './_lib/rfqRepository.js';
+import { persistRfq, insertBomLineItems } from './_lib/rfqRepository.js';
+import { parseBomFile, isBomFileSupported } from './_lib/bomParser.js';
 
 function formatResendError(status, body) {
   const safeBody = body ? String(body).slice(0, 400) : '';
@@ -217,6 +218,38 @@ export default async function handler(req, res) {
     persistence = { persisted: false, reason: 'error', error: e.message };
   }
 
+  // Step 4: BOM parsing agent. Best-effort, bounded, and never allowed to
+  // block or fail the actual RFQ submission — if this errors out or runs
+  // long, the RFQ is already safely saved and will still be emailed below
+  // exactly as before. This just adds structured line items on top, when
+  // it works within its time budget.
+  let bomParseResult = { attempted: false };
+  if (persistence.persisted && parsed.bom && isBomFileSupported(parsed.bom.filename)) {
+    bomParseResult = { attempted: true, itemCount: 0 };
+    try {
+      const BOM_PARSE_TIMEOUT_MS = 8000;
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('bom_parse_timeout')), BOM_PARSE_TIMEOUT_MS)
+      );
+
+      const result = await Promise.race([parseBomFile(parsed.bom.buffer, parsed.bom.filename), timeout]);
+
+      if (result.supported && result.items.length > 0) {
+        const insertResult = await insertBomLineItems(persistence.rfqId, result.items);
+        bomParseResult.itemCount = insertResult.inserted;
+      } else if (!result.supported) {
+        bomParseResult.reason = result.reason;
+      }
+    } catch (e) {
+      // Logged, not surfaced to the customer — this is an enrichment step,
+      // not a required one. A timed-out or failed extraction still leaves
+      // the uploaded file safely stored and emailed, just without
+      // structured line items this time.
+      console.error('[api/rfq] BOM parsing failed or timed out:', e.message);
+      bomParseResult.reason = e.message;
+    }
+  }
+
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
   const MAIL_TO = process.env.MAIL_TO || SMTP_USER || '';
   const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || '';
@@ -323,5 +356,6 @@ export default async function handler(req, res) {
     webhook,
     rfqNumber: persistence.persisted ? persistence.rfqNumber : null,
     persisted: persistence.persisted,
+    bomParsed: bomParseResult,
   });
 }

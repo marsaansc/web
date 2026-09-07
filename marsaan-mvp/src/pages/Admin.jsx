@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import LeadsPanel from './LeadsPanel.jsx'
 
 const STATUS_OPTIONS = ['received', 'quoting', 'quoted', 'won', 'lost']
 
@@ -19,6 +20,7 @@ export default function Admin() {
   const [loadError, setLoadError] = useState(null)
   const [expandedId, setExpandedId] = useState(null)
   const [bomBusyId, setBomBusyId] = useState(null)
+  const [activeTab, setActiveTab] = useState('rfqs')
 
   async function loadRfqs() {
     setLoadError(null)
@@ -141,10 +143,27 @@ export default function Admin() {
   return (
     <div style={{ paddingTop: 24, paddingBottom: 40 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <h2 style={{ margin: 0 }}>RFQs</h2>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            className={activeTab === 'rfqs' ? 'btn primary' : 'btn'}
+            onClick={() => setActiveTab('rfqs')}
+          >
+            RFQs
+          </button>
+          <button
+            className={activeTab === 'leads' ? 'btn primary' : 'btn'}
+            onClick={() => setActiveTab('leads')}
+          >
+            Leads
+          </button>
+        </div>
         <button className="btn" onClick={handleLogout}>Log out</button>
       </div>
 
+      {activeTab === 'leads' ? (
+        <LeadsPanel />
+      ) : (
+        <>
       {loadError && (
         <div className="card" style={{ marginBottom: 16, borderColor: '#fca5a5' }}>
           <p style={{ color: '#b91c1c' }}>{loadError}</p>
@@ -180,6 +199,11 @@ export default function Admin() {
                     <td>
                       <div><b>{rfq.company || '—'}</b></div>
                       <div className="small">{rfq.contact_name}</div>
+                      {rfq.lead_id && (
+                        <div className="small" title="This RFQ originated from a lead discovered by Lead Scout">
+                          🔍 From lead
+                        </div>
+                      )}
                     </td>
                     <td className="small">{rfq.email || '—'}</td>
                     <td>
@@ -224,6 +248,7 @@ export default function Admin() {
                               <th>Product</th>
                               <th>Model / Part #</th>
                               <th>Qty</th>
+                              <th>Source</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -233,6 +258,15 @@ export default function Admin() {
                                 <td>{li.product_name || '—'}</td>
                                 <td>{li.model_part_number || '—'}</td>
                                 <td>{li.qty ?? '—'}</td>
+                                <td>
+                                  {li.source === 'bom_upload' ? (
+                                    <span className="pill" title="Extracted automatically from the uploaded BOM file — verify against the original file before quoting.">
+                                      AI-extracted, verify
+                                    </span>
+                                  ) : (
+                                    <span className="small">Manual</span>
+                                  )}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -245,6 +279,8 @@ export default function Admin() {
             })}
           </tbody>
         </table>
+      )}
+      </>
       )}
     </div>
   )
