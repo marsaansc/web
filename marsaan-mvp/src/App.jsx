@@ -10,6 +10,7 @@ import Traceability from './pages/Traceability.jsx'
 import Returns from './pages/Returns.jsx'
 import Contact from './pages/Contact.jsx'
 import Blueprint from './pages/Blueprint.jsx'
+import Admin from './pages/Admin.jsx'
 
 export default function App(){
   return (
@@ -26,6 +27,7 @@ export default function App(){
           <Route path="/returns" element={<Returns />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blueprint" element={<Blueprint />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </Layout>
