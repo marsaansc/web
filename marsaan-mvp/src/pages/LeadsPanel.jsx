@@ -15,6 +15,7 @@ export default function LeadsPanel() {
   const [scanning, setScanning] = useState(false)
   const [scanProgress, setScanProgress] = useState(null) // { current, total, currentSku }
   const [scanLog, setScanLog] = useState([]) // per-SKU results as they come in
+  const [selectedSkus, setSelectedSkus] = useState(new Set())
 
   const [expandedLeadId, setExpandedLeadId] = useState(null)
   const [replyDrafts, setReplyDrafts] = useState({}) // leadId -> textarea content
@@ -55,10 +56,14 @@ export default function LeadsPanel() {
     return json
   }
 
-  async function handleScanAll() {
+  async function handleScanSelected() {
+    const list = (products.products || []).filter(p => selectedSkus.has(p.sku))
+    if (list.length === 0) {
+      alert('Select at least one part to scan.')
+      return
+    }
     setScanning(true)
     setScanLog([])
-    const list = products.products || []
     setScanProgress({ current: 0, total: list.length, currentSku: null })
 
     for (let i = 0; i < list.length; i++) {
@@ -79,6 +84,20 @@ export default function LeadsPanel() {
     setScanning(false)
     setScanProgress(null)
     await loadLeads()
+  }
+
+  function toggleSku(sku) {
+    setSelectedSkus(prev => {
+      const next = new Set(prev)
+      if (next.has(sku)) next.delete(sku)
+      else next.add(sku)
+      return next
+    })
+  }
+
+  function toggleSelectAll() {
+    const allSkus = (products.products || []).map(p => p.sku)
+    setSelectedSkus(prev => (prev.size === allSkus.length ? new Set() : new Set(allSkus)))
   }
 
   async function handleStatusChange(id, status) {
@@ -135,12 +154,43 @@ export default function LeadsPanel() {
       <div className="card" style={{ marginBottom: 16 }}>
         <h3>Scan for leads</h3>
         <p>
-          Searches the public web, one catalog part at a time, for people who look like they're
+          Searches the public web, per selected part, for people who look like they're
           actively trying to buy that part. Manually triggered — no automatic scheduling yet.
+          Each part scanned costs roughly $0.10–0.15 in API usage, so pick specific parts
+          rather than scanning everything by default.
         </p>
-        <button className="btn primary" onClick={handleScanAll} disabled={scanning}>
-          {scanning ? 'Scanning…' : `Scan all ${products.products?.length || 0} catalog parts`}
-        </button>
+
+        <div style={{ maxHeight: 220, overflowY: 'auto', border: '1px solid #eee', borderRadius: 8, padding: 8, marginBottom: 10 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600, marginBottom: 6 }}>
+            <input
+              type="checkbox"
+              checked={selectedSkus.size === (products.products?.length || 0) && selectedSkus.size > 0}
+              onChange={toggleSelectAll}
+            />
+            Select all {products.products?.length || 0} parts
+          </label>
+          {(products.products || []).map(p => (
+            <label key={p.sku} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
+              <input
+                type="checkbox"
+                checked={selectedSkus.has(p.sku)}
+                onChange={() => toggleSku(p.sku)}
+              />
+              <span>{p.sku} — {p.productName}</span>
+            </label>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button className="btn primary" onClick={handleScanSelected} disabled={scanning || selectedSkus.size === 0}>
+            {scanning ? 'Scanning…' : `Scan ${selectedSkus.size} selected part${selectedSkus.size === 1 ? '' : 's'}`}
+          </button>
+          {selectedSkus.size > 0 && (
+            <span className="small">
+              Estimated cost: ~${(selectedSkus.size * 0.12).toFixed(2)}
+            </span>
+          )}
+        </div>
 
         {scanProgress && (
           <div style={{ marginTop: 12 }}>
