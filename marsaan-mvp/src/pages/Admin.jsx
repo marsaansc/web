@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import LeadsPanel from './LeadsPanel.jsx'
+import SuppliersPanel from './SuppliersPanel.jsx'
 
 const STATUS_OPTIONS = ['received', 'quoting', 'quoted', 'won', 'lost']
 
@@ -156,11 +157,19 @@ export default function Admin() {
           >
             Leads
           </button>
+          <button
+            className={activeTab === 'suppliers' ? 'btn primary' : 'btn'}
+            onClick={() => setActiveTab('suppliers')}
+          >
+            Suppliers
+          </button>
         </div>
         <button className="btn" onClick={handleLogout}>Log out</button>
       </div>
 
-      {activeTab === 'leads' ? (
+      {activeTab === 'suppliers' ? (
+        <SuppliersPanel />
+      ) : activeTab === 'leads' ? (
         <LeadsPanel />
       ) : (
         <>
