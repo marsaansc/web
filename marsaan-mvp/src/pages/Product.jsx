@@ -7,6 +7,9 @@ import fpgaBg from '../assets/fpga.jpg'
 import mcuBg from '../assets/microcontroller.jpg'
 import { addToCart } from '../components/QuoteCart.jsx'
 
+// Third-party reference prices/links (Amazon, Alibaba, etc.) are hidden until verified.
+const SHOW_EXTERNAL_REFERENCES = false
+
 function LinkLine({ label, url, price }){
   if(!url) return null
   return (
@@ -67,6 +70,10 @@ export default function Product(){
   const leadDays = Number.isFinite(p.leadTimeDays) ? Math.round(p.leadTimeDays) : null
 
   const extSources = useMemo(() => {
+    // Hidden until each reference link and price is verified by hand: several
+    // links were dead (Amazon 404, Alibaba "No results") and prices unverifiable.
+    // Set SHOW_EXTERNAL_REFERENCES to true in this file to bring them back.
+    if (!SHOW_EXTERNAL_REFERENCES) return []
     const links = p.links || {}
     return [
       { name:'Amazon India', url: links.amazonIN?.url, price: links.amazonIN?.priceINR ? `₹${Math.round(links.amazonIN.priceINR)}` : '' },
