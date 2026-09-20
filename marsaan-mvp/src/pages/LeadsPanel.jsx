@@ -49,6 +49,7 @@ export default function LeadsPanel() {
         productName: product.productName,
         manufacturer: product.manufacturer,
         keySpecs: product.keySpecs,
+        searchHints: product.searchHints,
       }),
     })
     const json = await res.json()
