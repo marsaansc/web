@@ -32,7 +32,11 @@ import { extractTextFromMessage, parseJsonArrayFromModelText } from './modelJson
 
 const SCOUT_MODEL = 'claude-sonnet-5';
 
-function buildScoutPrompt({ sku, productName, manufacturer, keySpecs }) {
+// Cost guard: caps web searches per part. Without this the model may run many
+// searches, and each one adds search-result text to the billed tokens.
+const MAX_SEARCHES_PER_PART = 3;
+
+function buildScoutPrompt({ sku, productName, manufacturer, keySpecs, searchHints }) {
   return `You are helping an Indian electronics distributor (Marsaan) find potential customers by searching the public web for people currently looking to buy a specific part.
 
 Part to search for:
@@ -40,6 +44,7 @@ Part to search for:
 - Product name: ${productName}
 - Manufacturer: ${manufacturer || 'unknown'}
 - Key specs: ${keySpecs || 'none provided'}
+- Extra search hints (equivalent part numbers, keywords): ${searchHints || 'none provided'}
 
 Search the web for PUBLIC posts, listings, or requests where someone appears to be actively looking to buy, source, or get a quote for this part (or a very close equivalent) — not general information pages, datasheets, or unrelated product listings. Prioritize sources relevant to Indian buyers first (IndiaMART, TradeIndia, Indian engineering/maker forums, Indian startup/hardware communities), then general global sources (Reddit, X/Twitter, industry forums) if nothing India-specific turns up.
 
@@ -48,12 +53,13 @@ For each genuine demand signal you find, note:
 - The platform/site name
 - A short snippet showing why this looks like real demand (quote or paraphrase the relevant part)
 - Quantity mentioned, if any (as a number, or null if not specified)
+- The post date as YYYY-MM-DD, or null if it cannot be determined
 
-Be conservative — only include results that look like a real person actively wanting to buy this part soon, not old archived posts, general discussions about the technology, or spec/comparison pages. It's fine to return an empty list if nothing genuine turns up.
+Be conservative — only include results that look like a real person actively wanting to buy this part soon, not old archived posts, general discussions about the technology, institutional/about pages, or spec/comparison pages. Only include posts from the last 6 months; skip anything older, and skip a result if you cannot tell its date and it looks old. The result must be about this exact part or a true drop-in equivalent, not a different variant or model. It's fine to return an empty list if nothing genuine turns up.
 
 After searching, respond with ONLY a JSON array, no other text, no markdown code fences, no explanation before or after — even if you found nothing. If nothing genuine turned up, respond with exactly: []
 Example shape:
-[{"sourceUrl":"https://...","platform":"IndiaMART","snippet":"...","qtyMentioned":50}]`;
+[{"sourceUrl":"https://...","platform":"IndiaMART","snippet":"...","qtyMentioned":50,"postDate":"2026-08-14"}]`;
 }
 
 /**
@@ -72,8 +78,8 @@ export async function scanForLeads(product) {
   const message = await anthropic.messages.create({
     model: SCOUT_MODEL,
     max_tokens: 4096,
-    temperature: 0, // favor consistent, strict format-following over creative variation for this extraction task
-    tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+    // No `temperature`: claude-sonnet-5 rejects it with a 400 ("temperature is deprecated for this model").
+    tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: MAX_SEARCHES_PER_PART }],
     messages: [{ role: 'user', content: buildScoutPrompt(product) }],
   });
 

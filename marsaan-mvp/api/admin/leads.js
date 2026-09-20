@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-    const { sku, productName, manufacturer, keySpecs } = body;
+    const { sku, productName, manufacturer, keySpecs, searchHints } = body;
 
     if (!sku || !productName) {
       res.statusCode = 400;
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
 
     let scanResult;
     try {
-      scanResult = await scanForLeads({ sku, productName, manufacturer, keySpecs });
+      scanResult = await scanForLeads({ sku, productName, manufacturer, keySpecs, searchHints });
     } catch (e) {
       res.statusCode = 500;
       res.setHeader('Content-Type', 'application/json');
@@ -92,14 +92,31 @@ export default async function handler(req, res) {
       return res.end(JSON.stringify({ ok: true, inserted: 0 }));
     }
 
-    const rows = scanResult.leads.map((lead) => ({
-      sku,
-      source_url: lead.sourceUrl || null,
-      source_platform: lead.platform || null,
-      snippet: lead.snippet || null,
-      qty_mentioned: Number.isFinite(Number(lead.qtyMentioned)) ? Number(lead.qtyMentioned) : null,
-      raw_result: lead,
-    }));
+    // Skip leads whose URL we already stored for this SKU (re-scans would
+    // otherwise insert duplicates).
+    const { data: existing } = await supabase.from('leads').select('source_url').eq('sku', sku);
+    const seenUrls = new Set((existing || []).map((r) => r.source_url).filter(Boolean));
+
+    const rows = scanResult.leads
+      .filter((lead) => !(lead.sourceUrl && seenUrls.has(lead.sourceUrl)))
+      .map((lead) => {
+        // Number(null) is 0, so a missing quantity must be checked first.
+        const qty = lead.qtyMentioned == null ? NaN : Number(lead.qtyMentioned);
+        return {
+          sku,
+          source_url: lead.sourceUrl || null,
+          source_platform: lead.platform || null,
+          snippet: lead.snippet || null,
+          qty_mentioned: Number.isFinite(qty) && qty > 0 ? qty : null,
+          raw_result: lead,
+        };
+      });
+
+    if (rows.length === 0) {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      return res.end(JSON.stringify({ ok: true, inserted: 0, reason: 'all_results_already_stored' }));
+    }
 
     const { data: inserted, error: insertError } = await supabase.from('leads').insert(rows).select();
 
