@@ -78,7 +78,7 @@ export async function scanForLeads(product) {
   const message = await anthropic.messages.create({
     model: SCOUT_MODEL,
     max_tokens: 4096,
-    temperature: 0, // favor consistent, strict format-following over creative variation for this extraction task
+    // No `temperature`: claude-sonnet-5 rejects it with a 400 ("temperature is deprecated for this model").
     tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: MAX_SEARCHES_PER_PART }],
     messages: [{ role: 'user', content: buildScoutPrompt(product) }],
   });
